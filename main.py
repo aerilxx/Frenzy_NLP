@@ -90,20 +90,7 @@ def blogger_crawler():
             return render_template('crawlresult.html', link=url, text=text, images=images)
 
 
-# terminal and test on postman
-                
-# upload a txt file that contains the blogger post
-@app.route('/terminalupload', methods = ['POST'])
-def upload_from_terminal():
-
-    file = request.files['data']
-    if file is None:
-        return "please submit a file"
-    else:
-        text = file.read().decode(encoding='utf-8', errors='strict')
-        text = text.replace('\n',' ')
-        result = run_nlp_analysis(text)
-        return jsonify(result)
+# -------------- terminal endpoint and test on postman -------------------- #
 
 # fix error :TypeError: Object of type 'set' is not JSON serializable
 def set_default(obj):
@@ -129,7 +116,7 @@ def img_crawler():
         return json.dumps(text)
 
 
-# receive blogger text, return json
+# receive blogger text in body, return nlp in json format
 @app.route('/getnlp', methods = ['POST'])
 def run_nlp():
     try:
@@ -137,7 +124,6 @@ def run_nlp():
         if data is None:
             return "no text submitted"
         else:
-            # text = data.decode(encoding='utf-8', errors='strict')
             result = run_nlp_analysis(deEmojify(data))
             return jsonify(result)
     except:
@@ -145,14 +131,13 @@ def run_nlp():
         return json.dumps(text)
 
 
-# input url in terminal, get all result (json, text , imgs)
-@app.route('/getresult', methods = ['POST'])
+# input url in terminal, get NLP result
+@app.route('/getnlpresult', methods = ['POST'])
 def get_result():
     try:
         url = request.get_data().decode('utf8')
 
         if url is None:
-            print('no url')
             return "wrong url"
         else:
             text = crawl_text(url)
@@ -161,7 +146,32 @@ def get_result():
     except:
         text = "Caught an exception" + str(sys.exc_info()[0]) + " , " + str(sys.exc_info()[1])
         return json.dumps(text)
-         
+ 
+
+ # input url in terminal, get all result including images, text, NLP
+@app.route('/getallresult', methods = ['POST'])
+def get_result():
+    try:
+        url = request.get_data().decode('utf8')
+
+        if url is None:
+            return "please provide a url"
+        else:
+            text = crawl_text(url)
+            img = crawl_img(url)
+            result = run_nlp_analysis(text)
+            data = {}
+            data['text'] = text
+            data['img'] = img
+            data['nlp'] = result
+            jsondata=[]
+            jsondata.append(data)
+            return json.dumps(jsondata,default=set_default, indent = 4)
+
+    except:
+        text = "Caught an exception" + str(sys.exc_info()[0]) + " , " + str(sys.exc_info()[1])
+        return json.dumps(text)        
+
 
 # postman load testing purpose, provide url links as parameter
 @app.route('/jmetertesting', methods = ['GET'])
@@ -170,10 +180,18 @@ def jmetertesting():
         if 'url' in request.args:
             link = request.args['url']
             text = crawl_text(link)
+            img = crawl_img(url)
             result = run_nlp_analysis(text)
-            return jsonify(result)
+            data = {}
+            data['text'] = text
+            data['img'] = img
+            data['nlp'] = result
+            jsondata=[]
+            jsondata.append(data)
+            return json.dumps(jsondata,default=set_default, indent = 4)
         else:
-            return 'no url'
+            return 'please provide url'
+
     except:
         text = "Caught an exception" + str(sys.exc_info()[0]) + " , " + str(sys.exc_info()[1])
         return json.dumps(text)      
