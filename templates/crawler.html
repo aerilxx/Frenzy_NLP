@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+    <title>input the blogger url</title>
+    <style>
+    * {
+	  box-sizing: border-box;
+	}
+
+    header {
+      font-family: Arial, Helvetica, sans-serif;
+	  background-color: #FFA8A8;
+	  padding: 10px;
+	  text-align: center;
+	  font-size: 20px;
+	  color: white;
+	}
+
+	nav {
+	  font-family: Arial, Helvetica, sans-serif;
+	  font-size: 15px;
+	  float: left;
+	  width: 100%;
+	  background: #FFD0D0;
+	  padding: 20px;
+	}
+
+    footer {
+	  background-color: #FFA8A8;
+	  padding: 3px;
+	  text-align: right;
+	  color: #FFA2A2;
+	}
+	    
+	    .button {
+		  background-color: #BA5454; 
+		  border: none;
+		  color: white;
+		  padding: 15px 32px;
+		  text-align: center;
+		  display: inline-block;
+		  font-size: 16px;
+		}
+	</style>
+</head>
+
+<html>
+   <body>
+   	<header>Blog Scrapper</header>
+		
+	<nav>
+		<p>
+			This is a test site for scrapping blogger article and images. Input the url links below:
+		</p>
+      <form action = "/crawler" method = "POST" enctype="application/x-www-form-urlencoded">
+         <textarea rows=5 cols=200 type="link" name="link"></textarea><br/>
+         <button class = "button" type = "submit"/>Run!</button>
+      </form>
+    </nav>
+      <footer>
+		  <p>BY AERIL</p>
+	  </footer>
+   </body>
+
+</html>
