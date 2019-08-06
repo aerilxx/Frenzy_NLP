@@ -1,0 +1,118 @@
+CategoryID,"Keywords (If only this Keyword is detected, assign CategoryID)"
+Women,Womens
+Women>Clothing,"Women, Womens, Women's, Womens', Unisex, Female, Lady, Ladies"
+Women>Clothing>Dresses,"Dress, Dresses"
+Women>Clothing>Dresses>Day,"Sundress, Shirtdress, Minidress, Slipdress"
+Women>Clothing>Dresses>Cocktail,
+Women>Clothing>Dresses>Gowns,"Gown, Gowns, Ballgown, Bedgown, Nightgown"
+Women>Clothing>Dresses>Maxi,
+Women>Clothing>Tops,"Top, Tops"
+Women>Clothing>Tops>T-shirts,"Tee, Tees, T-shirt, T-shirts, t's, ts, Tshirt, Tshirts"
+Women>Clothing>Tops>Tank tops,"wife-beater, cami, undershirt, Tank, Tanks, Neck Shell"
+Women>Clothing>Tops>Blouses,"Blouse, Blouses, Button-up, Button-down, button up, button down"
+Women>Clothing>Tops>Shirts,"Shirt, Shirts, Button-up, Button-down, button up, button down"
+Women>Clothing>Tops>Tunics,"Tunics, Tunic, Kurta"
+Women>Clothing>Tops>Cardigans,"Cardigans, Cardigan"
+Women>Clothing>Tops>Sweaters,"Sweaters, Sweater, Pullover, Pullovers, Jumpers, Jumper, Turtleneck, Turtlenecks"
+Women>Clothing>Tops>Sweatshirts & Hoodies,"Sweatshirts, Sweatshirt, Hoodies, Hoodie, Hoody"
+Women>Clothing>Outerwear>Coats,"Coat, Coats, Parka, Parkas, Trench, Trenches, Trenchcoat, Trenchcoats, Anorak, Anoraks, Overcoat, Peacoat, Duster, Dusters"
+Women>Clothing>Outerwear>jackets,"Jacket, Jackets, Kimono, Kimonos, Blazer, Blazers, Topper, Bomber"
+Women>Clothing>Outerwear>Vests,"Vest, Vests, Waistcoat, Waistcoats, Waist Coat, Gilet"
+Women>Clothing>Outerwear>Capes,"Cape, Capes, Poncho, Ponchos, Cloak, Cloaks"
+Women>Clothing>Skirts,"Skirts, Skirt"
+Women>Clothing>Skirts>Mini,"Miniskirt, Miniskirts, Mini-Skirt, Mini-Skirts"
+Women>Clothing>Skirts>Knee-length,"Midiskirt, Midiskirts, Midi-Skirt, Midi-Skirts"
+Women>Clothing>Skirts>Long,"maxiskirt, Maxi-skirt, Maxi-Skirts"
+Women>Clothing>Shorts,"Shorts, Short, Shortie"
+Women>Clothing>Skorts,"Skort, Skorts"
+Women>Clothing>Jeans,"Jeans, Jean, Denim"
+Women>Clothing>Jeans>Bootcut,
+Women>Clothing>Jeans>Boyfriend,
+Women>Clothing>Jeans>Flared,
+Women>Clothing>Jeans>Cropped,
+Women>Clothing>Jeans>Skinny,"Jeggings, Jegging"
+Women>Clothing>Jeans>Straight Leg,
+Women>Clothing>Jeans>Wide Leg,
+Women>Clothing>Pants,"Pant, Pants, Trousers, Trouser, Slack, Slacks, Chino, Chinos"
+Women>Clothing>Pants>Capri & Cropped,
+Women>Clothing>Pants>Leggings,"Legging, Leggings, Jegging, Jeggings, Tregging, Treggings"
+Women>Clothing>Pants>Straight Leg,
+Women>Clothing>Pants>Wide Leg,
+Women>Clothing>Pants>Skinny,
+Women>Clothing>Pants>Flared,
+Women>Clothing>Pants>Boot Cut,
+Women>Clothing>Pants>Culottes,"Culotte, Culottes, Gaucho"
+Women>Clothing>Pants>Sweats,"Sweatpant, Sweatpants, Sweat-pant, Sweats, Trackpant, Trackpants, Tracksuit Bottom, Tracksuit Bottoms"
+Women>Clothing>Rompers & Jumpsuits,"Romper, Rompers, Jumpsuit, Jumpsuits, Jump-suit, Jump-suits, Playsuit, Playsuits, Play-Suit, Play-Suits, Bodysuits, Bodysuit, Body-suit, Body-suits,Â"
+Women>Clothing>Overalls,"Overall, Overalls, Over-all, Over-alls, Dungarees, Dungaree, Shortall, Shortalls, Short-all, Short-alls"
+Women>Clothing>Intimates>Bras,"Bra, Bras, Sportsbra, Bralette, Bralettes"
+Women>Clothing>Intimates>Camisoles,"Cami, Camisole, Undershirt"
+Women>Clothing>Intimates>Chemises,"Chemise, Chemises"
+Women>Clothing>Intimates>Hosiery,"Hosiery, Sock, Socks, Stocking, Stockings, Tights, Leg Warmers, Leg Warmer, Leg-Warmers, Leg-Warmer, Pantyhose"
+Women>Clothing>Intimates>Sleepwear,"Sleepwear, Sleep, Pajama, Pajamas, PJ, Sleepshirt, Lounge Set, Nightgown, Nightshirt, Nightdress, Nightie, Night Slip, Pyjama, Pyjamas"
+Women>Clothing>Intimates>Panties & Thongs,"Panties, Pantie, Panty, Thong, Thongs, Underwear, Hipsters, Boyshort, Boyshorts, Boy Short, Boy Shorts, Boy-Short, Boy-Shorts, Boypant, Boypants, Brief, Briefs, Boxer, Boxers, Tanga, Cheeky, Cheekster, Knicker, Knickers, G-String, Underwear"
+Women>Clothing>Intimates>Robes,"Robe, Robes, Kimono. Kimonos"
+,
+Women>Clothing>Swimwear,"Swim, Swimwear, Bathing Suit, Bathingsuit, Bathing- , swimsuit, swim- "
+Women>Clothing>Swimwear>Bikinis,"Bikini, Bikinis, Tankini"
+Women>Clothing>Swimwear>Bikinis>Bikini Tops,
+Women>Clothing>Swimwear>Bikinis>Bikini Bottoms,
+Women>Clothing>Swimwear>One-Piece,"Swimdress, Swimsuit, Monokini, Maillot, Rash Guard, Rashguard, Wetsuit, Wetsuits"
+Women>Clothing>Swimwear>Cover Up,"Kaftan, Kaftans, Cover-Up, Cover Up, Coverup, Caftan, Caftans, Sarong, Sarongs"
+Women>Clothing>Activewear,"Activewear, Active, Athletic, Athlete, Hiking, Camping, Sports, Sporty, Basketball, Football, Soccer, Outdoors, Run, Running, Runner, Runners, Jog, Jogging, Jogger, Joggers, Walking, Walkers, Cycling, Cyclist, Snow, Ski, Snow- , Ski- ,  -Ski, Surf, Surfing, Swimming, Snowboard, Snowboarding, Skiing, Sailing, Train, Training, Hiking, Hike, Windbreaker, Leggings, Legging, Sweatpant, Sweatpants, Workout, Workouts, Work-out, Yoga, Tennis, Golf, Golfing, Golfer, Boxing, Boxer, Racerback, Pro, Techfit, Under Armour, Track, Ballet, Reflective, Athleisure"
+Women>Clothing>Bridal,"Bridal, Bride, Brides, Bridesmaid, Bridesmaids, Wedding, Engagement"
+Women>Clothing>Costumes,"Costume, Costumes, Halloween, Cos-play, Cos Play, Mask, Masquerade, Anime, Hat, Hats, Wig, Wigs, Cowgirl, Costume- "
+Women>Clothing>Petites,"Petite, Petites, Petite-size,"
+Women>Clothing>Plus,"Plus, Plus-, Pluses"
+Women>Clothing>Suits,"Suit, Suits, Suiting, Tracksuit, Tracksuits"
+Women>Shoes,"Shoe, Shoes"
+Women>Shoes>Athletic,Cleats
+Women>Shoes>Boots,"Boot, Boots, Bootie, Booties, Rainboot, Rainboots, Wellie, Wellies"
+Women>Shoes>Mules & Clogs,"Mule, Mules, Clog, Clogs, Jelly, Jellies"
+Women>Shoes>Flats,"Flat, Flats, Flatform, Flatforms, Espadrille, Espadrilles, Slip on, Slip Ons, Slip-on, Slip-ons, Slipper, Slippers, Ballerinas, Flip Flop, Flip Flops, Flip-Flop, Flip-Flops, Creeper, Creepers, Skimmers, Skimmer, Slide, Slides, Sliders"
+Women>Shoes>Loafers & Moccasins,"Loafers, Loafer, Mocassins, Mocassin, Slip on, Slip Ons, Slip-on, Slip-ons, Slipper, Slippers, Slide, Slides, Sliders"
+Women>Shoes>Oxfords,"Oxford, Oxfords, Brogue, Brogues,Â"
+Women>Shoes>Heels,"Pump, Pumps, Heel, Heels, High-heel, High-heels, Courts, Heeled, Stiletto, Stilettos"
+Women>Shoes>Sandals,"Sandal, Sandals, Gladiator, Gladiators, Flip Flop, Flip Flops, Flip-Flop, Flip-Flops,Â"
+Women>Shoes>Wedges,"Wedges, Wedge"
+Women>Shoes>Platforms,"Platforms, Platform, Creeper, Creepers"
+Women>Shoes>Sneakers,"Sneaker, Sneakers, Trainers, Trainer"
+Women>Accessories,
+Women>Accessories>Belts,"Belt, waistbelt, belts, harness, fanny pack, fanny packs"
+Women>Accessories>Eyewear>,Eyewear
+Women>Accessories>Eyewear>Sunglasses,"Sunnies, Sunglass, Sunglasses, Aviator, Aviators, Cat Eye, Shades, Sun Glasses"
+Women>Accessories>Eyewear>Eyeglasses,"Eye-wear, Eye-glass, Eye-glasses, Eyeglasses, Eyeglass, Readers, Glasses"
+Women>Accessories>Hats,"Hat, Hats, Millinery, Beret, Baseballcap, Beanie, Beanies, Fedora, Fedoras, Snapback, Visor, Turban, Fascinator, Headwear"
+Women>Accessories>Gloves,"Glove, Gloves, Mittens, Mitten"
+Women>Accessories>Hair,"Hairbow, Hairbows, Hair-bow, Hairband, Hairbands, Headband, Headbands, Head Band, Head Bands, Head-Band, Head-Bands, Tiara, Tiaras, Crown, Crowns, Ponytail, Comb, Combs, Barrette, Headwrap, Head-Wrap, Head Wrap, Headpiece, Head Piece, Hairstyle, Turban, Bobby Pins, Bobby Pin, Hair Band"
+Women>Accessories>Scarves,"Scarf, Scarves, Stole, Snood, Bandana, Bandanas, Shawl, Neckerchief, Neckerchiefs"
+Women>Accessories>Tech,"headphones, headphone, phone, phones,  -phone, cellphone, headset, bluetooth, laptop, computer, iwatch, iphone, iphone4, iphone5, iphone6, galaxy, samsung, ios, android, iPhoneÂ®, earbuds, earbud, hi-tech, earphones, earphone, tablet, Ipad, camera, smartphone"
+Women>Accessories>Umbrellas,"Umbrella, Umbrellas"
+Women>Accessories>Bags,
+Women>Accessories>Bags>Backpacks,"Backpack, Backpacks, Back-pack, knapsack, back pack, rucksack"
+Women>Accessories>Bags>Wallets,"wallet, wallet- , organizer, coinpurse, coin-purse, coin purse, wallet-on-chain, wallet-on-a-chain, wallet-on-a-strap, wallet-on-strap, Checkbook, Cardholder, Travel Pouch, Passport, Card Holder"
+Women>Accessories>Bags>Luggage,"Luggage, Luggages, Carry-on, Carry on, Suitcase, Duffle, Duffles, Duffels, Duffel, Weekender, Weekenders, Carryall, holdall, Packing Case, Trunk, Trunks, Spinner, Spinners, Overnighter, Rollaboard"
+Women>Accessories>Bags>Handbags,"handbag, handbags, hand-bag, hand bag, hand bags, purse, purses, Bag, Bags"
+Women>Accessories>Bags>Handbags>Clutches,"Clutch, Clutches, Miniaudiere, Pochette, Wristlet, Baguette"
+Women>Accessories>Bags>Handbags>Shoulder Bags,"Messenger, Messengers, Shoulder Strap, Shoulderbag, Shoulderbags, Bauletto, Bauletti"
+Women>Accessories>Bags>Handbags>Duffles & Totes,"Tote, Totes, Duffle, Duffles, Duffels, Duffel, Carryall, Holdall, Shopper, Shoppers"
+Women>Accessories>Bags>Handbags>Satchels,"Satchel, Satchels"
+Women>Accessories>Bags>Handbags>Cross Body's,"Crossbody, Crossbodies, Cross-body, Cross body, Across Body, Crossbag, Across-body,  -Crossbody"
+Women>Accessories>Bags>Handbags>Hobos,"Hobo, Hobos"
+Women>Accessories>Jewelry,"Jewelry, Jewels"
+Women>Accessories>Jewelry>Necklaces,"Necklace, Necklaces, Choker, Chokers, Locket"
+Women>Accessories>Jewelry>Earrings,"Earrings, Earring, Ear"
+Women>Accessories>Jewelry>Bracelets & Bangles,"Bracelet, Bracelets, Bangle, Bangles, Wrist Strap, Wrist-Strap, Wriststrap, Armband, Arm Band, Armbands, Arm Bands, Arm-band, Arm-bands"
+Women>Accessories>Jewelry>Brooches,"Brooches, Brooch"
+Women>Accessories>Jewelry>Charms & Pendants,"Pin, Pins, Pendant, Pendants, Badge, Badges,  -pin,  -pins, pin- , Keychain, Keychains, Key-Chain, Key-Chains, Key Chain, Key Chains"
+Women>Accessories>Jewelry>Rings,"Ring, Rings"
+Women>Accessories>Jewelry>Watches,"Watch, Watches, Timepiece, Wristwatch,  -watch, Time Teller, Watch- "
+Women>Beauty,"Beaute, Cosmetic, Cosmetics"
+Women>Beauty>Makeup,"Makeup, Make-up, Make up, Mascara, Mascaras, Lipstick, Lipsticks, Lip- , Lipgloss, Lipglass, Lipshine, Lipbalm, Lipbalmer, Powder, Concealer, Concealers, Brush, Brushes, Eye Color, Eye Colour, Eye Shadow, Eye Shadows, Eye Brow, Eye Brows, Eyebrow, Eyebrows, Eye-Brow, Eye-Brows, Eye-shadow, Eyeshadow, Eyepencil, Eye-pencil, Eye-pencils, Eye Pencil, Eyeliner, Eyeliners, Eye-liner, Eye-liners, Eye Liner, Eye Liners, Palette, Multi-palette, Powder, Lash, Lashes, Eyelashes, Eyelash, Eye-lashes, Eye-lash, Blush, Blushes, Blusher, Bronzer, Bronzers, Bronzing, Foundation, Primer, Highlight, Highlighter, Balm"
+Women>Beauty>Skincare,"Skincare, Skin- , Moisturizer, Moisturising, Moisturizing, Moisturises, Moisturizes, SPF, Sunscreen, Skin Care, Cleansing, Wipe, Wipes, Facial, Masque, Serum, Remover, Exfoliating, Exfoliator, Hydration, Hydrating, Soap, Soaps, Eye Cream, Microderm, Lotion"
+Women>Beauty>Fragrances,"Fragrance, Fragrances, Fragrance's, Perfume, Perfumes, Perfum, Parfum, Parfums, Parfume, Parfumes, Toilette, Perfumery"
+Women>Beauty>Bath & Body,"Bath, Bathtub, Bath- , Shampoo, Shampoos, Conditioner, Soap, Soaps Wipe, Wipes, Deodorant, Antiperspirant, Shower Cap, Sanitizer"
+Women>Beauty>Hair,"Hairbrush, Hairbrushes, Haircare, Haircomb, Haircombs, Hairspray, Hairsprays, Hairstyler, Hairstylers, Hair- , Extensions, Shampoo, Shampoos, Conditioner, Curling, Curly, Curler, Wig, Wigs, Comb, Combs, Flat Iron, Styling Iron, Pomade, Mousse"
+Women>Beauty>Nails,"Nails, Nail, Nail- , Nails- ,  -Nail,  -Nails, Manicure"
+Women>Beauty>Sets & Kits,"Gift Set, Gift Sets, Gift Box, Gift Kits, Gift Kit, Starter Kit, Spa Basket, Travel Kit"
+Women>Beauty>Bags & Cases,"Circle Pouch, Traincase, Washbag"
