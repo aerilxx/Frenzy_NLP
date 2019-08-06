@@ -23,9 +23,6 @@
 
 # folder
 .DS_Store
-.spyproject/
-static/
-templates/
 __pycache__/
 apropos
 python

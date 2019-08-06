@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+    	* {
+	  box-sizing: border-box;
+	}
+
+	nav {
+	  float: left;
+	  width: 100%;
+	  background: #FFD0D0;
+	  padding: 20px;
+	}
+
+	/* Style the list inside the menu */
+	nav ul {
+	  font-size: 25px;
+	  list-style-type: none;
+	  padding: 0;
+	  text-align: center;
+	}
+
+    header {
+	  background-color: #FFA8A8;
+	  padding: 10px;
+	  text-align: center;
+	  font-size: 15px;
+	  color: black;
+	}
+
+    footer {
+	  background-color: #FFA8A8;
+	  padding: 3px;
+	  text-align: right;
+	  color: #FFA2A2;
+	}
+
+    </style>
+</head>
+
+<html>
+   <body>
+   		<header>
+		  <h2>Frenzy NLP front-end tester</h2>
+		</header>
+         <nav>
+		    <ul>
+		      <h1> instructions and links</h1>
+		      <li> <img src ="{{url_for('static', filename='unimpresseddog.jpg')}}"></li>
+		      <li> Crawler for bloggers: </li>
+			  <li> <a href="/crawl">http://52.53.214.86/crawl</a></li></br>
+			  <li> Run NLP : </li>
+			  <li> <a href="/upload">http://52.53.214.86/upload</a></li></br>
+			  <li> Scrap blogger text and imgs, input url link, get result from Postman and Terminal: </li>
+			  <li style = "font-size: 20px; color: #FF3333">Command : curl 52.53.214.86/getresult -d 'blogger_url” -H "Content-Type: text/plain"</li>
+			  <li> http://52.53.214.86/getcrawler</li></br>
+			  <li> Run NLP, input text, get result from Postman and Terminal: </li>
+			  <li style = "font-size: 20px; color: #FF3333">Command : curl -X POST -F “data=@file_location” 52.53.214.86/terminalupload</li>
+			  <li> http://52.53.214.86/getnlp</li></br>
+		    </ul>
+		  </nav>
+	     <footer>
+		  <p>BY AERIL</p>
+		 </footer>
+   </body>
+</html>

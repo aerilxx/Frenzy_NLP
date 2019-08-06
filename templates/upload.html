@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Upload New File</title>
+    <style>
+    header {
+      font-family: Arial, Helvetica, sans-serif;
+	  background-color: #FFA8A8;
+	  padding: 10px;
+	  text-align: center;
+	  font-size: 15px;
+	  color: white;
+	}
+
+	nav {
+	  width: 100%;
+	  background: #FFD0D0;
+	  padding: 20px;
+	}
+
+	body {
+	  font-family: Arial, Helvetica, sans-serif;
+	  font-size :20px; 
+	  float: center;
+	}
+
+    footer {
+	  background-color: #FFA8A8;
+	  padding: 3px;
+	  text-align: right;
+	  color: #FFA2A2;
+	}
+    </style>
+</head>
+
+<html>
+   <header>
+		  <h2>Upload New File in txt extention</h2>
+	</header>
+
+	<nav>
+   <body>
+      <form action = "/uploader" method = "POST" 
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" />
+         <input type = "submit"/>
+      </form>
+   </body>
+    </nav>
+
+   <footer>
+	  <p>BY AERIL</p>
+   </footer>
+</html>
