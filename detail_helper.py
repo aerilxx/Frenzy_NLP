@@ -111,7 +111,6 @@ def convert_idx(map_tokenize, map_split, idx):
         j = j + 1
 
     res = order[idx]
-    print("In construct map", ordert[res])
     return ordert[res]
 
 
@@ -119,9 +118,9 @@ def construct_map(text, list_type):
     map_tokenize = find_idx_map_by_tokenize(text, list_type)
     map_split = find_idx_map(text, list_type)
     final_idx_map = {}
-    #print(map_tokenize)
-    #print(map_split)
-  
+    print(map_tokenize)
+    print(map_split)
+    # TODO: index is going out of range due to map_tokenize and split, take care into it.
     special_case_pattern = ['check', 'checked', 'print', 'printed']
     special_case_material = ['denim', 'jeans', 'jean']
     for key, value in map_split.items():
@@ -138,6 +137,23 @@ def construct_map(text, list_type):
         else:
             final_idx_map[key] = value
     return final_idx_map
+#
+#
+# def get_score(text, idx_category_map, idx_detail_map):
+#     cidx = list(idx_category_map.keys())
+#     didx = list(idx_detail_map.keys())
+#     scorelist = []
+#
+#     for p in cidx:
+#         for d in didx:
+#             # logic : added the proximity distance, if distance is less then 150 then only we map them
+#             if abs(p - d) <= 150:
+#                 score = calculate_score(text, p, d)
+#                 if score > 0.2:
+#                     scorelist.append((idx_category_map[p], idx_detail_map[d], score))
+#
+#     return scorelist
+#
 
 def get_score_test2(text, idx_brand_map, idx_category_map, idx_detail_map, score_list):
     bidx = list(idx_brand_map.keys())
@@ -175,7 +191,8 @@ def get_score_test2(text, idx_brand_map, idx_category_map, idx_detail_map, score
                 if abs(c-s[0]) < closest_dist:
                     closest_brand = s[0]
                     closest_dist = abs(c - s[0])
-        
+                # if c == 717:
+                #     print("YEAH")
 
         if closest_dist != 1000:
             c_idx, score = max_score_for_each_cat[d]
@@ -186,8 +203,6 @@ def get_score_test2(text, idx_brand_map, idx_category_map, idx_detail_map, score
     for key in all_key_to_be_del:
         del max_score_for_each_cat[key]
 
-    # key : detail
-    # value : list of (brand, category, score)
     dic = {}
     #logic: finding all the score between brands and details, and cats and details
     for s in score_list:
@@ -202,7 +217,7 @@ def get_score_test2(text, idx_brand_map, idx_category_map, idx_detail_map, score
 
                         score_brand_det = calculate_score(stop_map, linked, b, d, all_words)
                         score_cat_det = calculate_score(stop_map, linked, c, d, all_words)
-                        
+
                         score = (score_brand_det + score_cat_det) / 2.0
                         if d in dic :
                             prev_score = dic[d][2]
