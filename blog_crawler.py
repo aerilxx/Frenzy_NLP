@@ -377,17 +377,17 @@ def crawl_img(link):
                 elif img.has_attr('sizes'):
                     # print((img['sizes'][img['sizes'].rfind(' ') + 1:img['sizes'].rfind('px')]) == "")
                     # print("(*8")
-                    if (img['sizes'][img['sizes'].rfind(' ') + 1:img['sizes'].rfind('px')]) == "":
+                    if (img['sizes'][img['sizes'].rfind(' ')+1 : img['sizes'].rfind('px')]) == "":
                         continue
                     #logic : This site failed for https://www.whowhatwear.com/how-to-live-a-stylish-life--5b4668b812320/slide2 if I do not write the above code
-                    if (int(img['sizes'][img['sizes'].rfind(' ') + 1:img['sizes'].rfind('px')]) < 350):
+                    if (int(img['sizes'][img['sizes'].rfind(' ')+1 : img['sizes'].rfind('px')]) < 350):
                         continue
+                    else:
+                        images.add(img['src'])
 
                 elif not img.has_attr('sizes') and not img.has_attr('width'):
                     imagesnosize.append(img['src'])
 
-                else:
-                    images.add(img['src'])
     # in case all images in post have no size, scrap all imgs
     if len(images) == 0 and len(imagesnosize) >= 1:
         print("Image_no_size")
