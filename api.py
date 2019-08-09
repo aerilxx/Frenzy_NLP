@@ -12,6 +12,7 @@ from main_function import run_nlp_analysis
 from blog_crawler import crawl_text, crawl_img
 import json
 import sys
+import time
 
 app = Flask(__name__)
 ALLOWED_EXTENSIONS = set(['txt'])
@@ -84,10 +85,12 @@ def blogger_crawler():
     else:
         # print(url)
         try:
+            start = time.time()
             text = crawl_text(url)
             images = crawl_img(url)
+            end = time.time()
             # print(text)
-            return render_template('crawlresult.html', link=url, text=text, images=images)
+            return render_template('crawlresult.html', link=url, text=text, images=images, time = end - start)
 
 
         except:
@@ -179,21 +182,21 @@ def get_all_result():
         text = "Caught an exception" + str(sys.exc_info()[0]) + " , " + str(sys.exc_info()[1])
         return json.dumps(text)
 
-    # postman load testing purpose, provide url links as parameter
+   
 
-
-@app.route('/jmetertesting', methods=['GET'])
+# final end point for whole system, provide url links as parameter, can be used on loadtesting
+@app.route('/nlp', methods=['GET'])
 def jmetertesting():
     try:
         if 'url' in request.args:
             link = request.args['url']
             text = crawl_text(link)
-            img = crawl_img(request.args['url'])
+            img = crawl_img(link)
             result = run_nlp_analysis(text)
             data = {}
-            data['text'] = text
-            data['img'] = img
-            data['nlp'] = result
+            data['Description'] = text
+            data['Images'] = img
+            data['NLP_Result'] = result
             jsondata = []
             jsondata.append(data)
             return json.dumps(jsondata, default=set_default, indent=4)
