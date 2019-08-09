@@ -248,7 +248,7 @@ def run_nlp_analysis(text):
     jsondata = sorted(jsondata, key=lambda i: i["brand_pair_score"], reverse=True)
     jsondata = sorted(jsondata, key= lambda i: i["Brand_Name"])
 
-    return json.dumps(jsondata)
+    return json.dumps(jsondata, indent=4)
 
 print('....          end          ....')
 
