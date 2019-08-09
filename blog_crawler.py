@@ -7,12 +7,15 @@ fdffdsf
 """
 
 from bs4 import BeautifulSoup
+# import urllib.request
 import urllib
 import urllib.request
 from urllib.error import HTTPError
+# import urllib.error.HTTPError
+# from urllib2 import urlopen
 import re
 import random
-
+import unicodedata
 
 def deEmojify(inputString):
    return inputString.encode('ascii', 'ignore').decode('ascii')
@@ -224,14 +227,13 @@ def crawl_text(link):
     content4 = soup.find('div', 'storycontent')
 
     art = soup.find('article')  # fix post layout without entry-content but in article section
-    # final = []
-    final1=''
+
     final2 = ''
     final3=''
     final4=''
     text_art = ''
 
-    flag  = False
+    flag = False
 
     if content is not None:
         print("Text in entry-content")
@@ -333,7 +335,7 @@ def crawl_img(link):
         imgs = content2.find_all('img')
 
     elif art is not None:
-        print('have article tag')
+        print('image have article tag')
         imgs = art.find_all('img')
 
     else:
@@ -341,8 +343,9 @@ def crawl_img(link):
         imgs = soup.find_all('img')
 
     imagesnosize = []
+
+    
     for img in imgs:
-        #for site http://coveteur.com/2019/06/06/fashion-psychologist-shares-how-mood-connects-with-style/ there is one image with no src tag
         if img.has_attr('src'):
             flag = 0
             for a in avoid:
@@ -353,7 +356,7 @@ def crawl_img(link):
                 continue
 
             # exclude picutre size smaller than 350 pixle
-            if img['src'] is not None and img['src'].startswith('http'):
+            if img['src'] is not None and (img['src'].startswith('http') or img['src'].startswith('https')):
                 # if img.has_attr('width') and isinstance(img['width'], int) and int(img['width']) < 350:
                 if img.has_attr('width'):
                     # logic : added tnis case to avoid % in img width
@@ -365,18 +368,19 @@ def crawl_img(link):
                         images.add(img['src'])
 
                 elif img.has_attr('sizes'):
-                    
-                    if (img['sizes'][img['sizes'].rfind(' ') + 1:img['sizes'].rfind('px')]) == "":
+                    # print((img['sizes'][img['sizes'].rfind(' ') + 1:img['sizes'].rfind('px')]) == "")
+                    # print("(*8")
+                    if (img['sizes'][img['sizes'].rfind(' ')+1 : img['sizes'].rfind('px')]) == "":
                         continue
                     #logic : This site failed for https://www.whowhatwear.com/how-to-live-a-stylish-life--5b4668b812320/slide2 if I do not write the above code
-                    if (int(img['sizes'][img['sizes'].rfind(' ') + 1:img['sizes'].rfind('px')]) < 350):
+                    if (int(img['sizes'][img['sizes'].rfind(' ')+1 : img['sizes'].rfind('px')]) < 350):
                         continue
+                    else:
+                        images.add(img['src'])
 
                 elif not img.has_attr('sizes') and not img.has_attr('width'):
                     imagesnosize.append(img['src'])
 
-                else:
-                    images.add(img['src'])
     # in case all images in post have no size, scrap all imgs
     if len(images) == 0 and len(imagesnosize) >= 1:
         print("Image_no_size")
@@ -389,4 +393,7 @@ def crawl_img(link):
 
     return images
 
+# text = crawl_img("https://inthingstyle.com/4-summer-dresses-to-take-you-through-the-rest-of-the-season/")
+# print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+# print(text)
 
