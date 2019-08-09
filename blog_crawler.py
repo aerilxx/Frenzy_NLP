@@ -344,7 +344,7 @@ def crawl_img(link):
 
     imagesnosize = []
 
-    
+
     for img in imgs:
         if img.has_attr('src'):
             flag = 0
