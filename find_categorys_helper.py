@@ -18,14 +18,17 @@ one_word_category_dict={}
 with open('1_word_category.txt', 'r') as infile:
     one_word_category_dict = ast.literal_eval(infile.readline())
 
+#read txt dictioanry files
 two_word_category_dict={}
 with open('2_word_category.txt', 'r') as infile:
     two_word_category_dict = ast.literal_eval(infile.readline())
     
+#read txt dictioanry files
 three_word_category_dict={}
 with open('3_word_category.txt', 'r') as infile:
     three_word_category_dict = ast.literal_eval(infile.readline())
-
+    
+#read txt dictioanry files
 four_word_category_dict={}
 with open('4_word_category.txt', 'r') as infile:
     four_word_category_dict = ast.literal_eval(infile.readline())
@@ -75,6 +78,8 @@ def find_category(text):
 
     words4=word_tokenize(text)
     for word in words4:
+        # if word == 'scarf':
+        #     print("Hey there, I am scarf")
         if word in one_word_category_dict:
             cate_list.append(word)
             bridge_map[word]=one_word_category_dict[word]

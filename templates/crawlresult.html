@@ -6,7 +6,7 @@
     <title>input the blogger url</title>
 
 	<style>
-	* {
+* {
 	  box-sizing: border-box;
 	}
 
@@ -96,30 +96,29 @@
 <html>
    <body>
 		<header>Blog Scrapper</header>
-
-			<p>This is a test site for scrapping blogger article and images. Input the url links below:
-			
-			</p>
 		<p>
+			This is a test site for scrapping blogger article and images. Input the url links below:
+                </p>
+                <p>
 			{{link}}
+                </p>
+		<p>
+		The time took for the server is {{time}}
 		</p>
-		
 		<form action = "/crawler" method = "POST" enctype="application/x-www-form-urlencoded">
 		<textarea rows=5 cols=200 type = "link" name="link"></textarea><br/>
 		<button class = "button" type = "submit"/>Run!</button></br>
 		</form>
-
 		<header>
 		  <h2>RESULTS</h2>
 		</header>
 		<section>
-
-		  <article>
-		    <h1>TEXT</h1>
-		    <p>
-		    	{{ text }}
-		    </p>
-		  </article>
+                  <article>
+                    <h1>TEXT</h1>
+                    <p>
+                       	{{ text }}
+                    </p>
+                  </article>
 
 		  <nav>
 		  	<h1> IMAGE URLS</h1>
@@ -142,5 +141,6 @@
 		<footer>
 		  <p>BY AERIL</p>
 		</footer>
-	</body>	
+	</body>
+
 </html>

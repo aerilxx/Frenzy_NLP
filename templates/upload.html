@@ -3,7 +3,7 @@
 
 <head>
     <title>Upload New File</title>
-    <style>
+<style>
     header {
       font-family: Arial, Helvetica, sans-serif;
 	  background-color: #FFA8A8;
@@ -35,19 +35,21 @@
 </head>
 
 <html>
-   <header>
+<header>
 		  <h2>Upload New File in txt extention</h2>
 	</header>
-
-	<nav>
+<nav>
    <body>
+      <p>
+        please upload a valid txt file with only articles.
+      </p>
       <form action = "/uploader" method = "POST" 
          enctype = "multipart/form-data">
          <input type = "file" name = "file" />
          <input type = "submit"/>
       </form>
    </body>
-    </nav>
+</nav>
 
    <footer>
 	  <p>BY AERIL</p>
