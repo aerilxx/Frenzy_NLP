@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Apr  3 17:33:11 2019
-
-@author: bingqingxie
-"""
 
 from find_brands_helper import find_all_brands, create_brand_idx_map
 from find_categorys_helper import find_category, create_product_idx_map
@@ -16,65 +11,39 @@ import time
 import sys
 
 material_dict = {'canvas': 'canvas', 'cashmere': 'cashmere', 'chiffon': 'chiffon', 'corduroy': 'corduroy',
-                 'jersey': 'cotton',
-                 'supimacotton': 'cotton', 'knit': 'cotton', 'denim': 'denim', 
-                 'felted': 'felt',
-                 'felt': 'felt', 'plaid': 'flannel', 'flannel': 'flannel', 'fleece': 'fleece', 'chambray': 'chambray',
+                 'jersey': 'cotton','supimacotton': 'cotton', 'knit': 'cotton', 'denim': 'denim',
+                 'felted': 'felt','felt': 'felt', 'plaid': 'flannel', 'flannel': 'flannel', 'fleece': 'fleece', 'chambray': 'chambray',
                  'camel hair': 'fur', 'calfhair': 'fur', 'camelhair': 'fur', 'shearlig': 'fur', 'cotton': 'cotton',
-                 'goose': 'goose', 'lacey': 'lace', 'lace': 'lace', 'calfskin': 'leather', 'lambskin': 'leather',
-                 'goat': 'leather',
-                 'cowhide': 'leather', 'calf': 'leather', 'lamb': 'leather', 'goatskin': 'leather',
-                 'kangaroo': 'leather', 'snakeskin': 'leather',
-                 'python': 'leather', 'snake': 'leather', 'ostrich': 'leather', 'alligator': 'leather',
-                 'gator': 'leather', 'croc': 'leather',
-                 'crocodile': 'leather', 'linen': 'linen', 'neoprene': 'neoprene', 'rubber': 'neoprene',
-                 'satin': 'satin', 'silk': 'silk',
-                 'nubuck': 'suede', 'suede': 'suede', 'rayon': 'synthetic', 'synthetic': 'synthetic',
-                 'spandex': 'synthetic', 'viscose': 'synthetic',
+                 'goose': 'goose', 'lacey': 'lace', 'lace': 'lace', 'calfskin': 'leather', 'lambskin': 'leather','goat': 'leather',
+                 'cowhide': 'leather', 'calf': 'leather', 'lamb': 'leather', 'goatskin': 'leather','kangaroo': 'leather', 'snakeskin': 'leather',
+                 'python': 'leather', 'snake': 'leather', 'ostrich': 'leather', 'alligator': 'leather','gator': 'leather', 'croc': 'leather',
+                 'crocodile': 'leather', 'linen': 'linen', 'neoprene': 'neoprene', 'rubber': 'neoprene', 'satin': 'satin', 'silk': 'silk',
+                 'nubuck': 'suede', 'suede': 'suede', 'rayon': 'synthetic', 'synthetic': 'synthetic', 'spandex': 'synthetic', 'viscose': 'synthetic',
                  'polyester': 'synthetic', 'elastane': 'synthetic', 'lycra': 'synthetic', 'nylon': 'synthetic',
-                 'acrylic': 'synthetic', 'acetate': 'synthetic',
-                 'polyurethane': 'synthetic', 'poly': 'synthetic', 'manmade': 'synthetic', 'man-made': 'synthetic',
-                 'plastic': 'synthetic',
-                 'modal': 'synthetic', 'eva': 'synthetic', 'foam': 'synthetic', 'velcro': 'synthetic',
-                 'lurex': 'synthetic',
-                 'tulled': 'tulle', 'tulle': 'tulle', 'tweed': 'tweed', 'velvet': 'velvet', 'wool': 'wool',
-                 'wooden': 'wood'
+                 'acrylic': 'synthetic', 'acetate': 'synthetic', 'polyurethane': 'synthetic', 'poly': 'synthetic', 'manmade': 'synthetic', 'man-made': 'synthetic',
+                 'plastic': 'synthetic', 'modal': 'synthetic', 'eva': 'synthetic', 'foam': 'synthetic', 'velcro': 'synthetic',
+                 'lurex': 'synthetic', 'tulled': 'tulle', 'tulle': 'tulle', 'tweed': 'tweed', 'velvet': 'velvet', 'wool': 'wool','wooden': 'wood'
                  }
 
 pattern_dict = {'print': 'print', 'printed': 'print', 'prints': 'print', 'pattern': 'print', 'patterned': 'print',
-                'graphic': 'print', \
-                'emboss': 'emboss', 'embossed': 'emboss', 'cloqué': 'emboss', 'woven': 'woven', 'weave': 'woven',
-                'weaved': 'woven', \
-                'wicker': 'woven', 'wickered': 'woven', 'embroidery': 'woven', 'embroidered': 'woven', 'ditsy': 'ditsy',
-                'exotic': 'exotic', \
-                'mix': 'exotic', 'mixture': 'exotic', 'floral': 'floral', 'logo': 'logo', 'brand': 'logo',
-                'branded': 'logo', 'signature': 'logo',
-                'paisley': 'paisley', 'plaid': 'plaid', 'checkered': 'plaid', 'check': 'plaid', 'flannel': 'plaid',
-                'polka dot': 'polka dot', 'polkadot': 'polka dot', 'dots': 'polka dot', 'spot': 'polka dot',
-                'spotted': 'polka dot',
+                'graphic': 'print','emboss': 'emboss', 'embossed': 'emboss', 'cloqué': 'emboss', 'woven': 'woven', 'weave': 'woven',
+                'weaved': 'woven','wicker': 'woven', 'wickered': 'woven', 'embroidery': 'woven', 'embroidered': 'woven', 'ditsy': 'ditsy',
+                'exotic': 'exotic','mix': 'exotic', 'mixture': 'exotic', 'floral': 'floral', 'logo': 'logo', 'brand': 'logo',
+                'branded': 'logo', 'signature': 'logo', 'paisley': 'paisley', 'plaid': 'plaid', 'checkered': 'plaid', 'check': 'plaid', 'flannel': 'plaid',
+                'polka dot': 'polka dot', 'polkadot': 'polka dot', 'dots': 'polka dot', 'spot': 'polka dot','spotted': 'polka dot',
                 'circle': 'circle', 'circles': 'circle', 'geometric': 'circle', 'quilt': 'quilt', 'quilted': 'quilt',
-                'quilting': 'quilt', \
-                'tie dye': 'tie dye', 'tie dyed': 'tie dye', 'tropical': 'tropical', 'hawaiian': 'tropical',
-                'hawaii': 'tropical', \
-                'tiger': 'leopard', 'lion': 'leopard', 'panther': 'leopard', 'leopard': 'leopard', 'cheetah': 'leopard',
-                'zebra': 'zebra', \
-                'snake': 'snake', 'snakeskin': 'snake', 'python': 'snake', 'croc': 'snake', 'alligator': 'snake',
-                'zig zag': 'zigzag', \
-                'zig-zag': 'zigzag', 'zigzag': 'zigzag', 'chevron': 'zigzag', 'feather': 'feather',
-                'feathers': 'feather', 'tribal': 'tribal', \
-                'lace': 'lace', 'crochete': 'lace', 'crocheted': 'lace','crochet': 'lace'}
+                'quilting': 'quilt','tie dye': 'tie dye', 'tie dyed': 'tie dye', 'tropical': 'tropical', 'hawaiian': 'tropical',
+                'hawaii': 'tropical','tiger': 'leopard', 'lion': 'leopard', 'panther': 'leopard', 'leopard': 'leopard', 'cheetah': 'leopard',
+                'zebra': 'zebra','snake': 'snake', 'snakeskin': 'snake', 'python': 'snake', 'croc': 'snake', 'alligator': 'snake',
+                'zig zag': 'zigzag','zig-zag': 'zigzag', 'zigzag': 'zigzag', 'chevron': 'zigzag', 'feather': 'feather',
+                'feathers': 'feather', 'tribal': 'tribal','lace': 'lace', 'crochete': 'lace', 'crocheted': 'lace','crochet': 'lace'}
 
-color_list = ['gold', 'purple', 'violet', 'brown', 'black', \
-              'turquoise', 'green', 'yellow', 'fuchsia', 'pink', \
-              'salmon', 'silver', 'blue', 'red', 'orange', 'gray', 'white', \
-              'beige', 'ivory', 'mustard', 'navy', 'khaki', 'lavender']
+color_list = ['gold', 'purple', 'violet', 'brown', 'black', 'turquoise', 'green', 'yellow', 'fuchsia', 'pink', \
+              'salmon', 'silver', 'blue', 'red', 'orange', 'gray', 'white','beige', 'ivory', 'mustard', 'navy', 'khaki', 'lavender']
 
-pattern_list = ['print', 'printed', 'prints', 'pattern', 'patterned', 'graphic', \
-                'emboss', 'embossed', 'cloqué', 'woven', 'weave', 'weaved', 'wicker', \
-                'wickered', 'embroidery', 'embroidered', 'ditsy', 'exotic', 'mix', 'mixture', \
-                'floral', 'logo', 'brand', 'branded', 'signature', 'designer name', 'paisley', \
-                'plaid', 'checkered', 'check', 'flannel', 'polka dot', 'polkadot', 'dots', 'spot', 'spotted', \
-                'circle', 'circles', 'geometric', 'quilt', 'quilted', 'quilting', 'tie dye', 'tie dyed', \
+pattern_list = ['print', 'printed', 'prints', 'pattern', 'patterned', 'graphic', 'emboss', 'embossed', 'cloqué', 'woven', 'weave', 'weaved', 'wicker', \
+                'wickered', 'embroidery', 'embroidered', 'ditsy', 'exotic', 'mix', 'mixture','floral', 'logo', 'brand', 'branded', 'signature', 'designer name', 'paisley', \
+                'plaid', 'checkered', 'check', 'flannel', 'polka dot', 'polkadot', 'dots', 'spot', 'spotted', 'circle', 'circles', 'geometric', 'quilt', 'quilted', 'quilting', 'tie dye', 'tie dyed', \
                 'tropical', 'hawaiian', 'hawaii', 'tiger', 'lion', 'puma', 'cat', 'panther', 'leopard', 'cheetah', \
                 'zebra', 'snake', 'snakeskin', 'python', 'croc', 'alligator', 'zig zag', 'zig-zag', 'zigzag', 'chevron', \
                 'feather', 'feathers', 'tribal', 'houndstooth', 'lace', 'crochete', 'crocheted']
@@ -112,12 +81,14 @@ def get_detail_id(word):
 
 
 def run_nlp_analysis(text):
-    start = time.time()
     text = text.replace('’',"'")
     brands, text_with_clean_brand, brand_bridge_map = find_all_brands(text)
 
     # logic to replace all '.' with ' .'
     text_with_clean_brand = text_with_clean_brand.replace('.', ' . ')
+    # print("text_with_clean_brand")
+    # print(text_with_clean_brand)
+    # exit(0)
     text_with_clean_catandbrand, categorys, category_map, cat_bridge_map = find_category(text_with_clean_brand)
 
     # logic : trying to remove the double spaces
@@ -128,7 +99,8 @@ def run_nlp_analysis(text):
 
     text_with_clean_catandbrand = ' '.join(res)
     # logic end
-
+    # print("text_with_clean_catandbrand in main_func")
+    # print(text_with_clean_catandbrand)
     idx_brand_map = create_brand_idx_map(text_with_clean_catandbrand, brands)
     idx_category_map = create_product_idx_map(text_with_clean_catandbrand, categorys)
     # print("idx brand map")
@@ -136,9 +108,7 @@ def run_nlp_analysis(text):
     # print("idx cat map")
     # print(sorted(idx_category_map.items()))
     score_list = get_final_result(text_with_clean_catandbrand, brands, categorys, idx_brand_map, idx_category_map)
-    #print(score_list)
-    end1 = time.time()
-    print("Total time till getting score_list = ", end1 - start)
+    print(score_list)
     jsondata = []
 
     # logic: getting the score_list for each in just one run
@@ -251,4 +221,3 @@ def run_nlp_analysis(text):
     return json.dumps(jsondata)
 
 print('....          end          ....')
-

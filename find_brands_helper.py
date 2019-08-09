@@ -10,11 +10,8 @@ import nltk
 from nltk.tokenize import sent_tokenize
 from nltk.util import ngrams
 import ast
-
 material_dict = {'canvas': 'canvas', 'cashmere': 'cashmere', 'chiffon': 'chiffon', 'corduroy': 'corduroy',
-                 'jersey': 'cotton',
-                 'supimacotton': 'cotton', 'knit': 'cotton', 'denim': 'denim', 
-                 'felted': 'felt',
+                 'jersey': 'cotton', 'supimacotton': 'cotton', 'knit': 'cotton', 'denim': 'denim', 'felted': 'felt',
                  'felt': 'felt', 'plaid': 'flannel', 'flannel': 'flannel', 'fleece': 'fleece', 'chambray': 'chambray',
                  'camel hair': 'fur', 'calfhair': 'fur', 'camelhair': 'fur', 'shearlig': 'fur', 'cotton': 'cotton',
                  'goose': 'goose', 'lacey': 'lace', 'lace': 'lace', 'calfskin': 'leather', 'lambskin': 'leather',
@@ -36,13 +33,12 @@ material_dict = {'canvas': 'canvas', 'cashmere': 'cashmere', 'chiffon': 'chiffon
                  'tulled': 'tulle', 'tulle': 'tulle', 'tweed': 'tweed', 'velvet': 'velvet', 'wool': 'wool',
                  'wooden': 'wood'
                  }
-
 def pre_clean_text(text):
     # logic: just finding all ascii possible values and ignoring the rest like '…'
     text = ''.join([i if ord(i) < 256 else ' ' for i in text])
     # text = text.encode('ascii', 'ignore').decode('ascii')
     text = ' '.join(text.split())
-    # replace special puncutation with. in original text 
+    # replace special puncutation with.
     t = text.replace('-', ' ').replace('–',' ').replace(':', ' ').replace('(', ' ').replace(')', ' '). \
         replace('~', ' ').replace(';', '.').replace('&', ' ').replace('+', ' '). \
         replace('/', ' ').replace('|', '.').replace('!', '.').replace('?', '.').replace('’',"'").replace(',', ' , ')
@@ -68,7 +64,7 @@ def pre_clean_text_brands(text):
     # delete extra white space
     text = text.encode('ascii', 'ignore').decode('ascii')
     text = ' '.join(text.split())
-    # replace special puncutation with. in brands with special cases 
+    # replace special puncutation with.
     t = text.replace('-', '').replace('–','').replace(':', '').replace('(', '').replace(')', ''). \
         replace('~', '').replace(';', '').replace('&', '').replace('+', ''). \
         replace('/', '').replace('|', '').replace('!', '').replace('?', '').replace('.','').replace('%','')
@@ -79,6 +75,13 @@ change brands name have french word
     replace("é","e").replace("Ë","e").replace("ë","e").replace("Í","i").replace("ï","i").\
     replace("í","i").replace("Ï","i").replace("Ó","o").replace("ó","o").replace("Ö","o").\
     replace("ö","o").replace("Ú","u").replace("ú","u").replace("Ü","u").replace("ü","u").replace("’", "'")
+    '''
+
+    # for key, value in material_dict.items():
+    #     t = t.replace(key, value)
+    '''
+    for key,value in pattern_dict.items():
+        t = t.replace(key,value)
     '''
     return t
 
@@ -225,8 +228,8 @@ def find_brands_with_specialcase(text):
         if b in text:
             brand_found.append(b)
 
-    #print("with special case brands")
-    #print(brand_found)
+    print("with special case brands")
+    print(brand_found)
     return brand_found
 
 
@@ -237,6 +240,7 @@ def find_all_brands(text):
     
     # brands with special cases 
     b2 = find_brands_with_specialcase(text)
+    idx_b = {}
 
     for b in b2:
 
