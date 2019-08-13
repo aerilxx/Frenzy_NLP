@@ -7,15 +7,12 @@ fdffdsf
 """
 
 from bs4 import BeautifulSoup
-# import urllib.request
 import urllib
 import urllib.request
 from urllib.error import HTTPError
-# import urllib.error.HTTPError
-# from urllib2 import urlopen
 import re
 import random
-import unicodedata
+import json
 
 def deEmojify(inputString):
    return inputString.encode('ascii', 'ignore').decode('ascii')
@@ -203,9 +200,6 @@ def clean_art_soup(content, avoidlist):
 
     return text
 
-
-
-
 def crawl_text(link):
     agent = get_user_agent()
     # fix internal server on site “https://www.elizahiggins.com/happy-hot-and-sweaty-nyfw/”
@@ -218,7 +212,9 @@ def crawl_text(link):
     except HTTPError as e:
         s = e.read()
 
-    soups = BeautifulSoup(s, 'html.parser')
+    #soups = BeautifulSoup(s, 'html.parser')
+    soups = BeautifulSoup(s, 'lxml')
+    
     soup = cleanme(soups)
     content = soup.find('div', 'entry-content')
     content2 = soup.find('div', 'content')  # fixed a special case for site http://adletfashion.com/en/
@@ -264,7 +260,6 @@ def crawl_text(link):
 
     if content4 is not None:
         print("Text in post-content")
-        # final = content3.get_text()
         avoidlist = remove_comments(content4)
         flag = True
         check_final = clean_divs(content4, avoidlist)
@@ -278,7 +273,6 @@ def crawl_text(link):
 
     elif flag == False:
         print("Text in soup")
-        # print(soup)
         avoidlist = remove_comments(soup)
         text = ''
 
@@ -291,16 +285,26 @@ def crawl_text(link):
     li = [final2, final3, final4, text_art]
     return max(li, key=len)
 
-# link = "https://www.jtouchofstyle.com/dreaming-spring-comfortable-sandals-for-women/"
-# link = "https://definingdanie.com/2018/11/21/items-you-must-pick-up-at-old-navys-black-friday-sale/"
-# link = "http://www.pointed-north.com/2019/01/30/buying-pieces-for-a-functional-wardrobe/"
-# link = "https://definingdanie.com/2018/11/21/items-you-must-pick-up-at-old-navys-black-friday-sale/"
-# link = "http://thegirlswhobrunch.com/weekend-reading-45/"
-# link = "http://www.stylemefancy.com/style-risks-you-should-make/"
-# link = "http://www.spoonsandstilettos.com/what-to-wear-to-a-early-spring-date/"
-# link = "https://theeastonthewest.com/crop-wide-leg-pants-and-tall-boots/"
-# link = "https://www.xoxojulzchez.com/is-leopard-the-new-neutral-welcome-to-the-jungle/"
 ############################################################################################################################################################################
+
+
+# scrap imgs in script tag, usually in carousel
+def crawl_img_from_javascript(soup):
+    images = set()
+    imgs = []
+    #different websites have different patterns, change accordingly
+    pattern = re.compile('var GALLERY_DATA = (.*?);$')
+    
+    scripts = soup.find_all('script')
+    for script in scripts:
+        if pattern.match(str(script.string)):
+            data = pattern.match(str(script.string))
+            imgs = json.loads(data.groups()[0])
+            
+    for img in imgs:
+        images.add(img['src'][0])
+
+    return images
 
 def crawl_img(link):
     # set avoid duplicate
@@ -315,7 +319,8 @@ def crawl_img(link):
     except HTTPError as e:
         s = e.read()
 
-    soup = BeautifulSoup(s, 'html.parser')
+    #soup = BeautifulSoup(s, 'html.parser')
+    soup = BeautifulSoup(s, 'lxml')
 
     content = soup.find('div', 'entry-content')
     content2 = soup.find('div', 'storycontent')
@@ -325,7 +330,9 @@ def crawl_img(link):
     # exclude plugin picture with these keywords
     avoid = ["facebook", "pinit", "instagram", "search", "google", "pinterest", "linkedin", "twitter", "sold", "loader","follow_subscribe"]
 
-    imgs = []
+    carousel = crawl_img_from_javascript(soup)
+    
+    imgs = set()
 
     # case 1: html has entry-content
     if content is not None:
@@ -342,8 +349,7 @@ def crawl_img(link):
         print("Content is none")
         imgs = soup.find_all('img')
 
-    imagesnosize = []
-
+    imagesnosize = set()
     
     for img in imgs:
         if img.has_attr('src'):
@@ -357,12 +363,12 @@ def crawl_img(link):
 
             # exclude picutre size smaller than 350 pixle
             if img['src'] is not None and (img['src'].startswith('http') or img['src'].startswith('https')):
-                # if img.has_attr('width') and isinstance(img['width'], int) and int(img['width']) < 350:
+                # if img.has_attr('width') and isinstance(img['width'], int) and int(img['width']) < 350:          
                 if img.has_attr('width'):
                     # logic : added tnis case to avoid % in img width
                     if img['width'][-1] == '%':
                         continue
-                    elif int(img['width']) < 350:
+                    elif int(img['width']) < 300:
                         continue
                     else:
                         images.add(img['src'])
@@ -379,7 +385,10 @@ def crawl_img(link):
                         images.add(img['src'])
 
                 elif not img.has_attr('sizes') and not img.has_attr('width'):
-                    imagesnosize.append(img['src'])
+                    imagesnosize.add(img['src'])
+                    
+            if img['src'] is not None and img['src'].endswith('gif'):
+                images.add(img['data-src'])
 
     # in case all images in post have no size, scrap all imgs
     if len(images) == 0 and len(imagesnosize) >= 1:
@@ -391,9 +400,13 @@ def crawl_img(link):
         for img in imgs:
             images.add(img['src'])
 
+    # append images in carasoel     
+    if carousel is not None:
+        for img in carousel:
+            print(img)
+            images.add(img)
+            
     return images
 
-# text = crawl_img("https://inthingstyle.com/4-summer-dresses-to-take-you-through-the-rest-of-the-season/")
-# print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-# print(text)
+
 
