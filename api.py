@@ -185,7 +185,7 @@ def get_all_result():
    
 
 # final end point for whole system, provide url links as parameter, can be used on loadtesting
-@app.route('/nlp', methods=['GET'])
+@app.route('/nlp', methods=['POST'])
 def jmetertesting():
     try:
         if 'url' in request.args:
@@ -196,7 +196,7 @@ def jmetertesting():
             data = {}
             data['Description'] = text
             data['Images'] = img
-            data['NLP_Result'] = result
+            data['NLP_Result'] = json.loads(result)
             jsondata = []
             jsondata.append(data)
             return json.dumps(jsondata, default=set_default, indent=4)
