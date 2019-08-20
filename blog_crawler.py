@@ -212,8 +212,9 @@ def crawl_text(link):
     except HTTPError as e:
         s = e.read()
 
-    #soups = BeautifulSoup(s, 'html.parser')
-    soups = BeautifulSoup(s, 'lxml')
+    soups = BeautifulSoup(s, 'html.parser')
+    # cannot instamm lxml on GCP, otherwise use lxml parser
+    #soups = BeautifulSoup(s, 'lxml')
     
     soup = cleanme(soups)
     content = soup.find('div', 'entry-content')
@@ -280,9 +281,13 @@ def crawl_text(link):
         return text
 
     # logic :
-    #  sometimes text contains article tags and one of div-content tags too, sometimes it may be some line or comments so just added lines to return max_length of all
+    #  sometimes text contains article tags and one of div-content tags too, 
+    # sometimes it may be some line or comments so just added lines to return max_length of all
 
-    li = [final2, final3, final4, text_art]
+    li = [final2, final3, final4]
+    if text_art:
+        return text_art
+    
     return max(li, key=len)
 
 ############################################################################################################################################################################
@@ -319,8 +324,8 @@ def crawl_img(link):
     except HTTPError as e:
         s = e.read()
 
-    #soup = BeautifulSoup(s, 'html.parser')
-    soup = BeautifulSoup(s, 'lxml')
+    soup = BeautifulSoup(s, 'html.parser')
+    #soup = BeautifulSoup(s, 'lxml')
 
     content = soup.find('div', 'entry-content')
     content2 = soup.find('div', 'storycontent')
