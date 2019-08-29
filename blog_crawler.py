@@ -36,6 +36,24 @@ def cleanme(soup):
 
     return soup
 
+def get_soup(link):
+    agent = get_user_agent()
+    # fix internal server on site “https://www.elizahiggins.com/happy-hot-and-sweaty-nyfw/”
+
+    req = urllib.request.Request(link, headers={'User-Agent': agent})
+    try:
+        url = urllib.request.urlopen(req)
+        s = url.read()
+
+    except HTTPError as e:
+        s = e.read()
+
+    soups = BeautifulSoup(s, 'html.parser')
+    # cannot instamm lxml on GCP, otherwise use lxml parser
+    #soups = BeautifulSoup(s, 'lxml')
+    
+    return soups
+
 # used to collect all avoided sections in the page
 def remove_comments(content):
     avoid_text = content.find_all('div', 'comment-box')
@@ -124,7 +142,7 @@ def clean_divs(content, avoidlist):
                 check = ' '.join(res)
                 # logic : sometimes string may end with special characters like \n,\t , so to avoid it
                 if len(check)>1 and check[1:-2] not in final:  # site: http://fashionmixbag.blogspot.com/
-                    print("paragrpah string", type(check), check)
+                    #print("paragrpah string", type(check), check)
 
                     final = final + '\n' + check
                     if check[-1] not in ending:
@@ -144,7 +162,7 @@ def clean_divs(content, avoidlist):
                     check = ' '.join(res)
                     # logic : sometimes string may end with special characters like \n,\t , so to avoid it
                     if len(check)>1 and check[1:-2] not in final:
-                        print("Paragrpah get_text", type(check), check)
+                        #print("Paragrpah get_text", type(check), check)
                         final = final + '\n' + check
                         if check[-1] not in ending:
                             final = final + ' .'
@@ -201,20 +219,7 @@ def clean_art_soup(content, avoidlist):
     return text
 
 def crawl_text(link):
-    agent = get_user_agent()
-    # fix internal server on site “https://www.elizahiggins.com/happy-hot-and-sweaty-nyfw/”
-
-    req = urllib.request.Request(link, headers={'User-Agent': agent})
-    try:
-        url = urllib.request.urlopen(req)
-        s = url.read()
-
-    except HTTPError as e:
-        s = e.read()
-
-    soups = BeautifulSoup(s, 'html.parser')
-    # cannot instamm lxml on GCP, otherwise use lxml parser
-    #soups = BeautifulSoup(s, 'lxml')
+    soups = get_soup(link)
     
     soup = cleanme(soups)
     content = soup.find('div', 'entry-content')
@@ -233,7 +238,7 @@ def crawl_text(link):
     flag = False
 
     if content is not None:
-        print("Text in entry-content")
+        #print("Text in entry-content")
 
         avoidlist = remove_comments(content)
         flag = True
@@ -244,7 +249,7 @@ def crawl_text(link):
 
 
     if content2 is not None:
-        print("Text in content")
+        #print("Text in content")
         # final = content2.get_text()
         avoidlist = remove_comments(content2)
         flag = True
@@ -252,7 +257,7 @@ def crawl_text(link):
         final2 = ''.join(check_final)
 
     if content3 is not None:
-        print("Text in post-content")
+        #print("Text in post-content")
         # final = content3.get_text()
         avoidlist = remove_comments(content3)
         flag = True
@@ -260,20 +265,20 @@ def crawl_text(link):
         final3 = ''.join(check_final)
 
     if content4 is not None:
-        print("Text in post-content")
+        #print("Text in post-content")
         avoidlist = remove_comments(content4)
         flag = True
         check_final = clean_divs(content4, avoidlist)
         final4 = ''.join(check_final)
 
     if art is not None:
-        print("Text in article")
+        #print("Text in article")
         text = ''
         avoidlist = remove_comments(art)
         text_art = clean_art_soup(art, avoidlist)
 
     elif flag == False:
-        print("Text in soup")
+        #print("Text in soup")
         avoidlist = remove_comments(soup)
         text = ''
 
@@ -314,18 +319,7 @@ def crawl_img_from_javascript(soup):
 def crawl_img(link):
     # set avoid duplicate
     images = set()
-    agent = get_user_agent()
-    # fix internal server on site "https://www.elizahiggins.com/happy-hot-and-sweaty-nyfw/"
-    req = urllib.request.Request(link, headers={'User-Agent': agent})
-    try:
-        url = urllib.request.urlopen(req)
-        s = url.read()
-
-    except HTTPError as e:
-        s = e.read()
-
-    soup = BeautifulSoup(s, 'html.parser')
-    #soup = BeautifulSoup(s, 'lxml')
+    soup = get_soup(link)
 
     content = soup.find('div', 'entry-content')
     content2 = soup.find('div', 'storycontent')
@@ -347,11 +341,11 @@ def crawl_img(link):
         imgs = content2.find_all('img')
 
     elif art is not None:
-        print('image have article tag')
+        #print('image have article tag')
         imgs = art.find_all('img')
 
     else:
-        print("Content is none")
+        #print("Content is none")
         imgs = soup.find_all('img')
 
     imagesnosize = set()
@@ -397,7 +391,7 @@ def crawl_img(link):
 
     # in case all images in post have no size, scrap all imgs
     if len(images) == 0 and len(imagesnosize) >= 1:
-        print("Image_no_size")
+        #print("Image_no_size")
         return imagesnosize
 
     # added this case if all images are less than 350 width
@@ -408,10 +402,16 @@ def crawl_img(link):
     # append images in carasoel     
     if carousel is not None:
         for img in carousel:
-            print(img)
+            #print(img)
             images.add(img)
             
     return images
 
 
-
+def crawl_title(link):
+    soup = get_soup(link)
+    
+    if soup.title.string:
+        return soup.title.string
+    else:
+        return 'no title'
