@@ -6,10 +6,9 @@ Created on Mon Apr 22 15:15:38 2019
 @author: bingqingxie
 """
 
-from flask import Flask, request, jsonify, url_for, render_template, send_from_directory, Response
-from werkzeug.utils import secure_filename
+from flask import Flask, request, jsonify, render_template, Response
 from main_function import run_nlp_analysis
-from blog_crawler import crawl_text, crawl_img
+from blog_crawler import crawl_text, crawl_img, crawl_title
 import json
 import sys
 import time
@@ -92,7 +91,6 @@ def blogger_crawler():
             # print(text)
             return render_template('crawlresult.html', link=url, text=text, images=images, time = end - start)
 
-
         except:
             text = "Caught an exception" + str(sys.exc_info()[0]) + " , " + str(sys.exc_info()[1])
             images = []
@@ -163,7 +161,6 @@ def get_nlp_result():
 def get_all_result():
     try:
         url = request.get_data().decode('utf8')
-
         if url is None:
             return "please provide a url"
         else:
@@ -173,7 +170,7 @@ def get_all_result():
             data = {}
             data['text'] = text
             data['img'] = img
-            data['nlp'] = result
+            data['nlp'] = json.loads(result)
             jsondata = []
             jsondata.append(data)
             return json.dumps(jsondata, default=set_default, indent=4)
@@ -185,15 +182,17 @@ def get_all_result():
    
 
 # final end point for whole system, provide url links as parameter, can be used on loadtesting
-@app.route('/nlp', methods=['POST'])
+@app.route('/nlp', methods=['POST', 'GET'])
 def jmetertesting():
     try:
-        if 'url' in request.args:
-            link = request.args['url']
-            text = crawl_text(link)
-            img = crawl_img(link)
+        url = request.values['url']
+        if url:
+            text = crawl_text(url)
+            img = crawl_img(url)
+            title = crawl_title(url)
             result = run_nlp_analysis(text)
             data = {}
+            data['Title'] = title
             data['Description'] = text
             data['Images'] = img
             data['NLP_Result'] = json.loads(result)
@@ -201,8 +200,8 @@ def jmetertesting():
             jsondata.append(data)
             return json.dumps(jsondata, default=set_default, indent=4)
         else:
-            return 'please provide url'
-
+            return "request.values didn't work."
+      
     except:
         text = "Caught an exception" + str(sys.exc_info()[0]) + " , " + str(sys.exc_info()[1])
         return json.dumps(text)
