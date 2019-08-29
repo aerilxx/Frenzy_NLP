@@ -28,8 +28,9 @@ def create_sentence_break(text):
     all_words = []
     text = ' '.join(text.split(' '))
 
-    for s in sent_tokenize(text):
+    for s in sent_tokenize(text.replace(u'\xa0', u' ')):
         s_words = s.split(' ')
+        print(s_words)
         listofsentence.append(len(s_words))
         all_words.extend(s_words)
     listofsentence[0] = listofsentence[0] - 1
