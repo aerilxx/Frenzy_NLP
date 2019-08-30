@@ -45,7 +45,7 @@ def pre_clean_text(text):
     # replace special puncutation with. in original text 
     t = text.replace('-', ' ').replace('–',' ').replace(':', ' ').replace('(', ' ').replace(')', ' '). \
         replace('~', ' ').replace(';', '.').replace('&', ' ').replace('+', ' '). \
-        replace('/', ' ').replace('|', '.').replace('!', '.').replace('?', '.').replace('’',"'").replace(',', ' , ')
+        replace('/', ' / ').replace('|', ' | ').replace('!', '.').replace('?', '.').replace('’',"'").replace(',', ' , ')
 
     '''
 change brands name have french word
@@ -71,7 +71,7 @@ def pre_clean_text_brands(text):
     # replace special puncutation with. in brands with special cases 
     t = text.replace('-', '').replace('–','').replace(':', '').replace('(', '').replace(')', ''). \
         replace('~', '').replace(';', '').replace('&', '').replace('+', ''). \
-        replace('/', '').replace('|', '').replace('!', '').replace('?', '').replace('.','').replace('%','')
+        replace('!', '').replace('?', '').replace('.','').replace('%','')
 
     '''
 change brands name have french word
