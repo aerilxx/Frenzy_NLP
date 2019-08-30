@@ -27,10 +27,10 @@ def create_sentence_break(text):
     listofsentence = []
     all_words = []
     text = ' '.join(text.split(' '))
-
+    
+    # fix the bug where 2 words are connected together by special character
     for s in sent_tokenize(text.replace(u'\xa0', u' ')):
         s_words = s.split(' ')
-        print(s_words)
         listofsentence.append(len(s_words))
         all_words.extend(s_words)
     listofsentence[0] = listofsentence[0] - 1
@@ -60,30 +60,47 @@ def calculate_score(stop_map, linked, b_idx, c_idx, all_words):
         # category in front of brand and in the same sentence
         if start < c_idx < b_idx <= end:
             score = (c_idx - start) / (b_idx - start - 1)
-            flag = 0
+            flag_comma = 0
+            flag_sep = 0
             # logic: checking if I have ','(comma) in between, if yes then divide score by 2
+            # print(all_words[c_idx: b_idx + 1])
             for i in range(c_idx, b_idx):
                 # print(i)
-                if all_words[i] == ',':
-                    flag = 1
+                if all_words[i] == '/' or  all_words[i] == '|':
+                    flag_sep = 1
                     break
-            if flag == 1:
-                score = score - 0.3
+                if all_words[i] == ',':
+                    flag_comma = 1
+                    break
+            if flag_sep == 1:
+                score = score / 8
+
+            elif flag_comma == 1:
+                score = score - 0.2
 
         # brand in front of category and in the same sentence
         elif start < b_idx < c_idx <= end:
+
             if end == b_idx + 1:
                 score = (end - c_idx) / (end - b_idx)
             else:
                 score = (end - c_idx) / (end - b_idx - 1)
-            flag = 0
+            flag_comma = 0
+            flag_sep = 0
+            # print(all_words[b_idx : c_idx + 1])
             for i in range(b_idx, c_idx):
-                # print(i)
-                if all_words[i] == ',':
-                    flag = 1
+                # seperator logic: if there is / | in sentence, devide score by 4
+                if all_words[i] == '/' or  all_words[i] == '|':
+                    flag_sep = 1
                     break
-            if flag == 1:
-                score = score - 0.3
+                if all_words[i] == ',':
+                    flag_comma = 1
+                    break
+            if flag_sep == 1:
+                score = score / 8
+
+            elif flag_comma == 1:
+                score = score - 0.2
 
         # category in front of brand and in different sentence
         elif (start < b_idx < end) and c_idx < start:
