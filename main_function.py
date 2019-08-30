@@ -17,7 +17,7 @@ import sys
 
 material_dict = {'canvas': 'canvas', 'cashmere': 'cashmere', 'chiffon': 'chiffon', 'corduroy': 'corduroy',
                  'jersey': 'cotton',
-                 'supimacotton': 'cotton', 'knit': 'cotton', 'denim': 'denim', 
+                 'supimacotton': 'cotton', 'knit': 'cotton', 'denim': 'denim',
                  'felted': 'felt',
                  'felt': 'felt', 'plaid': 'flannel', 'flannel': 'flannel', 'fleece': 'fleece', 'chambray': 'chambray',
                  'camel hair': 'fur', 'calfhair': 'fur', 'camelhair': 'fur', 'shearlig': 'fur', 'cotton': 'cotton',
@@ -184,7 +184,23 @@ def run_nlp_analysis(text):
         if d not in final_material:
             final_material[d] = material_extra[d]
 
+    score_set = set()
+    new_score_list = []
     for s in score_list:
+        brand_idx = s[0]
+        brand = brand_bridge_map[idx_brand_map[s[0]]]
+
+        cat_idx = s[1]
+        cat_name = idx_category_map[s[1]]
+        category = cat_bridge_map[cat_name]
+        score = s[2]
+        if (brand, cat_name) in score_set:
+            continue
+        else:
+            score_set.add((brand, cat_name))
+            new_score_list.append((brand_idx, cat_idx, score))
+
+    for s in new_score_list:
         brand_idx = s[0]
         brand = brand_bridge_map[idx_brand_map[s[0]]]
 
@@ -251,4 +267,3 @@ def run_nlp_analysis(text):
     return json.dumps(jsondata, indent=4)
 
 print('....          end          ....')
-
