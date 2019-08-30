@@ -191,14 +191,13 @@ def get_score_test2(text, idx_brand_map, idx_category_map, idx_detail_map, score
                 if abs(c-s[0]) < closest_dist:
                     closest_brand = s[0]
                     closest_dist = abs(c - s[0])
-                # if c == 717:
-                #     print("YEAH")
 
         if closest_dist != 1000:
             c_idx, score = max_score_for_each_cat[d]
             max_score_for_each_cat[d] = (closest_brand, c_idx, score)
         else:
             all_key_to_be_del.append(d)
+            
     # logic : deleting all the unnecessary brands
     for key in all_key_to_be_del:
         del max_score_for_each_cat[key]
