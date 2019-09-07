@@ -43,6 +43,7 @@ def pre_clean_text(text):
     # text = text.encode('ascii', 'ignore').decode('ascii')
     text = ' '.join(text.split())
     # replace special puncutation with. in original text 
+    # / and | as seperator
     t = text.replace('-', ' ').replace('–',' ').replace(':', ' ').replace('(', ' ').replace(')', ' '). \
         replace('~', ' ').replace(';', '.').replace('&', ' ').replace('+', ' '). \
         replace('/', ' / ').replace('|', ' | ').replace('!', '.').replace('?', '.').replace('’',"'").replace(',', ' , ')
