@@ -115,7 +115,7 @@ def find_brands_without_punc(text):
 
     brands=[]
     upper_d = upper_dict(brand_dict)
-    
+        
     for w in words:
         if w[0].isupper() and w.capitalize() in upper_d:
             # special cases with all uppercase brand individually check
@@ -123,7 +123,7 @@ def find_brands_without_punc(text):
                         'Think','Me','Day','Flowers','Fresh','Match','Simple','Toss','Classic','Gorgeous','Office','Only','Combo','Head Over Heels','Punch','Head','Together',\
                         'Trend','Black','Keep','Fallen','Accessories','Move','Town','Plus','List','IN BED', 'VS', 'Aspects', 'Springs', 'Made', 'Eight', 'Kind', 'Fortune', 'Block',\
                         'Seek', 'Staple', 'SET', 'Reason', 'Privilege', 'Living', 'Discovery', 'Space', 'SuperStar', 'Marvel', 'Debut', 'NOW', 'Day', 'Globe', 'Hope', 'ADD', 'POP',\
-                        'Fab', 'Nordstrom', 'Canvas', 'O', 'Unique', 'Sicily', 'Boutique', 'Sequin', 'Sparkle', 'Next', 'Holiday', 'Wrapper', 'Sky', 'DC', 'Menu', 'Element', 'Elements',\
+                        'Fab', 'Canvas', 'O', 'Unique', 'Sicily', 'Boutique', 'Sequin', 'Sparkle', 'Next', 'Holiday', 'Wrapper', 'Sky', 'DC', 'Menu', 'Element', 'Elements',\
                         'Mini', 'All Black', 'TP', 'Christina', 'So Easy', 'Mine', 'Hue', 'Bell', 'Darling', 'Name', 'Super', 'Fits', 'Perfection', 'Blazer', 'Jump', 'MET', 'IDEA', 'totes',\
                         'Chi', 'Rose', 'Wonders', 'Degree', 'Barbie', 'Charisma', 'Stellar', 'CAT', 'Republic', 'Ring', 'Rio', 'BOB', 'Gosh', 'Singer', 'Just For You', 'Character',\
                         'Only One', 'Native', 'Justice', 'Diana', 'One Piece', 'Young', 'Image', 'Your Own', 'Wanted', 'Solid', 'Olympia', 'JET', 'Casting', 'Lauren', 'Holmes', \
@@ -133,7 +133,6 @@ def find_brands_without_punc(text):
                 pass
             else:
                 brands.append(w.capitalize())
-            # print("1 word brand is : " + w)
        
     for w in list(nltk.bigrams(words)):
         pair = list(w)
@@ -177,6 +176,7 @@ def find_brands_without_punc(text):
 
         if str1[0].isupper() and s in upper_d:
             brands.append(s)
+    
     print("without punc brands")
     print(brands)
     return brands
