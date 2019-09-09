@@ -133,8 +133,8 @@ def run_nlp_analysis(text):
     idx_category_map = create_product_idx_map(text_with_clean_catandbrand, categorys)
     # print("idx brand map")
     # print(sorted(idx_brand_map.items()))
-    print("idx cat map")
-    print(sorted(idx_category_map.items()))
+    # print("idx cat map")
+    # print(sorted(idx_category_map.items()))
     # print("text_with_clean_catandbrand")
     # print(text_with_clean_catandbrand)
     score_list = get_final_result(text_with_clean_catandbrand, brands, categorys, idx_brand_map, idx_category_map)
@@ -213,14 +213,15 @@ def run_nlp_analysis(text):
         category = cat_bridge_map[cat_name]
         score = s[2]
 
-
+        # set threadshold for detail as 0.2
+    
         # print(brand_idx, brand, cat_idx,cat_name, category, score)
         c = None
         color_id = "no color"
         color_pair_score = 0
 
         for color_idx, record in final_color.items():
-            if record[0] == brand_idx and idx_category_map[record[1]] == cat_name and record[2] > color_pair_score:
+            if record[0] == brand_idx and idx_category_map[record[1]] == cat_name and record[2] > color_pair_score and record[2] > 0.2:
                 c = idx_color_map[color_idx]
                 color_id = get_detail_id(c)
                 color_pair_score = record[2]
@@ -230,7 +231,7 @@ def run_nlp_analysis(text):
         pattern_pair_score = 0
 
         for pattern_idx, record in final_pattern.items():
-            if record[0] == brand_idx and idx_category_map[record[1]] == cat_name and record[2] > pattern_pair_score:
+            if record[0] == brand_idx and idx_category_map[record[1]] == cat_name and record[2] > pattern_pair_score and record[2] > 0.2:
                 p = idx_pattern_map[pattern_idx]
                 pattern_id = get_detail_id(p)
                 pattern_pair_score = record[2]
@@ -239,7 +240,7 @@ def run_nlp_analysis(text):
         material_id = "no material"
         material_pair_score = 0
         for material_idx, record in final_material.items():
-            if record[0] == brand_idx and idx_category_map[record[1]] == cat_name and record[2] > material_pair_score:
+            if record[0] == brand_idx and idx_category_map[record[1]] == cat_name and record[2] > material_pair_score and record[2] > 0.2:
                 m = idx_material_map[material_idx]
                 material_id = get_detail_id(m)
                 material_pair_score = record[2]
