@@ -47,7 +47,7 @@ def create_sentence_break(text):
 
     # for key, values in sent_map.items():
     #     sent_map[key] = values
-
+    
     return sent_map, all_words
 
 
@@ -59,7 +59,7 @@ def calculate_score(stop_map, linked, b_idx, c_idx, all_words):
 
         # category in front of brand and in the same sentence
         if start < c_idx < b_idx <= end:
-            score = (c_idx - start) / (b_idx - start - 1)
+            score = (c_idx - start) / (b_idx - start + 1)
             flag_comma = 0
             flag_sep = 0
             # logic: checking if I have ','(comma) in between, if yes then divide score by 2
@@ -77,14 +77,20 @@ def calculate_score(stop_map, linked, b_idx, c_idx, all_words):
 
             elif flag_comma == 1:
                 score = score - 0.2
+            
+            #print('sentence start at {0}, end at {1}, brand idx is {2}, category index is {3} , score is {4} .'.format(start,end,b_idx,c_idx, score))
+
 
         # brand in front of category and in the same sentence
         elif start < b_idx < c_idx <= end:
+            if end == c_idx + 1:
+                score = (end - c_idx + 1) / (end - b_idx)
 
-            if end == b_idx + 1:
-                score = (end - c_idx) / (end - b_idx)
             else:
                 score = (end - c_idx) / (end - b_idx - 1)
+            
+            #print('sentence start at {0}, end at {1}, brand idx is {2}, category index is {3} , score is {4} .'.format(start,end,b_idx,c_idx, score))
+
             flag_comma = 0
             flag_sep = 0
             # print(all_words[b_idx : c_idx + 1])
@@ -101,11 +107,15 @@ def calculate_score(stop_map, linked, b_idx, c_idx, all_words):
 
             elif flag_comma == 1:
                 score = score - 0.2
+            
+            #print('sentence start at {0}, end at {1}, brand idx is {2}, category index is {3} , score is {4} .'.format(start,end,b_idx,c_idx, score))
 
         # category in front of brand and in different sentence
         elif (start < b_idx < end) and c_idx < start:
             new_start = find_new_start(linked, start, end, c_idx)
             score = ((c_idx - new_start) / (b_idx - new_start - 1)) / 4
+            
+        #elif (start < b_idx < end) and c_idx < start and 
 
         # brand in front of category and in different sentence
         elif (start < b_idx < end) and c_idx > end:
@@ -117,9 +127,14 @@ def calculate_score(stop_map, linked, b_idx, c_idx, all_words):
 
 def get_pair_score_map(clean_text, brands, categorys, brand_map, product_map):
     brands_idx_array = list(brand_map.keys())
+    #print('brands_idx_array')
+    #print(brands_idx_array)
     category_idx_array = list(product_map.keys())
+    #print('category_idx_array')
+    #print(category_idx_array)
 
     stop_map, all_words = create_sentence_break(clean_text)
+    #print(stop_map)
     linked = convert_map_to_linkedlist(stop_map)
 
     scorelist = []
@@ -127,6 +142,7 @@ def get_pair_score_map(clean_text, brands, categorys, brand_map, product_map):
         for c in category_idx_array:
             # logic : used to limit the distance between brand and category to 250 only.
             if abs(b - c) <= 250:
+                #print('brand index at {0}, category index at {1}, score is {2}'.format(b,c,calculate_score(stop_map, linked, b, c, all_words)))
                 scorelist.append((b, c, calculate_score(stop_map, linked, b, c, all_words)))
     scorelist.sort(key=operator.itemgetter(2), reverse=True)
 
@@ -139,14 +155,15 @@ def get_highest_score_pair_by_brand(scorelist, brand, brand_map):
     empty = []
     max_list = []
     for s in scorelist:
+        #print(s)
         if brand_map[s[0]] == brand:
             if s[2] >= 0.1:
                     # logic: checking if score > 0.9, if its 1 then we append them all and send entire list, beacuse returning just the max value would return 1st occurance of 1.0
 
-                    if s[2] >= 0.9:
-                        max_list.append(s)
-                    else:
-                        blist.append(s)
+                if s[2] >= 0.9:
+                    max_list.append(s)
+                else:
+                    blist.append(s)
             else:
                 empty.append(s)
 
@@ -182,7 +199,10 @@ def get_final_result(text, brands, categorys, brand_map, product_map):
     final = set()
     # logic : remove below
     scores = get_pair_score_map(text, brands, categorys, brand_map, product_map)
-    # print(scores)
+    #for s in scores:
+        #print(s)
+    #print('................all scores ends .................')
+
     for b in brands:
         b_score = get_highest_score_pair_by_brand(scores, b, brand_map)
         if b_score == []:
@@ -190,7 +210,7 @@ def get_final_result(text, brands, categorys, brand_map, product_map):
         else:
             for b in b_score:
                 final.add((b))
-
+  
     for c in categorys:
         c_score = get_highest_score_pair_by_category(scores, c, product_map)
         if c_score == []:
@@ -198,6 +218,7 @@ def get_final_result(text, brands, categorys, brand_map, product_map):
         else:
             for c in c_score:
                 final.add((c))
+                
     return sorted(final)
 
 
