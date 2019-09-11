@@ -118,8 +118,8 @@ def construct_map(text, list_type):
     map_tokenize = find_idx_map_by_tokenize(text, list_type)
     map_split = find_idx_map(text, list_type)
     final_idx_map = {}
-    print(map_tokenize)
-    print(map_split)
+    #print(map_tokenize)
+    #print(map_split)
     # TODO: index is going out of range due to map_tokenize and split, take care into it.
     special_case_pattern = ['check', 'checked', 'print', 'printed']
     special_case_material = ['denim', 'jeans', 'jean']

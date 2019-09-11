@@ -44,8 +44,6 @@ def find_category(text):
         str1 = ' '.join(pair)
 
         if str1 in four_word_category_dict:
-            print('4 word category: ')
-            print(str1)
             text = text.replace(str1, str1.replace(' ',''))
             cate_list.append(str1.replace(' ',''))
             bridge_map[str1.replace(' ','')]=four_word_category_dict[str1]
@@ -58,8 +56,6 @@ def find_category(text):
         str1 = ' '.join(pair)
 
         if str1 in three_word_category_dict:
-            print('3 word category: ')
-            print(str1)
             text = text.replace(str1, str1.replace(' ',''))
             cate_list.append(str1.replace(' ',''))
             bridge_map[str1.replace(' ','')]=three_word_category_dict[str1]
@@ -72,8 +68,6 @@ def find_category(text):
         str1 = ' '.join(pair)
 
         if str1.lower() in two_word_category_dict:
-            print('2 word category: ')
-            print(str1)
             text = text.replace(str1, str1.replace(' ',''))
             cate_list.append(str1.replace(' ',''))
             bridge_map[str1.replace(' ','')]=two_word_category_dict[str1]
@@ -83,8 +77,6 @@ def find_category(text):
 
     for word in words4:
         if word in one_word_category_dict:
-            print('1 word category:')
-            print(word)
             cate_list.append(word)
             bridge_map[word]=one_word_category_dict[word]
             category_map[word] = one_word_category_dict[word]

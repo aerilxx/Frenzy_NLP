@@ -199,10 +199,7 @@ def get_final_result(text, brands, categorys, brand_map, product_map):
     final = set()
     # logic : remove below
     scores = get_pair_score_map(text, brands, categorys, brand_map, product_map)
-    #for s in scores:
-        #print(s)
-    #print('................all scores ends .................')
-
+    
     for b in brands:
         b_score = get_highest_score_pair_by_brand(scores, b, brand_map)
         if b_score == []:
