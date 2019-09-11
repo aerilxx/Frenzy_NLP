@@ -44,6 +44,8 @@ def find_category(text):
         str1 = ' '.join(pair)
 
         if str1 in four_word_category_dict:
+            print('4 word category: ')
+            print(str1)
             text = text.replace(str1, str1.replace(' ',''))
             cate_list.append(str1.replace(' ',''))
             bridge_map[str1.replace(' ','')]=four_word_category_dict[str1]
@@ -56,6 +58,8 @@ def find_category(text):
         str1 = ' '.join(pair)
 
         if str1 in three_word_category_dict:
+            print('3 word category: ')
+            print(str1)
             text = text.replace(str1, str1.replace(' ',''))
             cate_list.append(str1.replace(' ',''))
             bridge_map[str1.replace(' ','')]=three_word_category_dict[str1]
@@ -67,19 +71,25 @@ def find_category(text):
         pair = list(w)
         str1 = ' '.join(pair)
 
-        if str1 in two_word_category_dict:
+        if str1.lower() in two_word_category_dict:
+            print('2 word category: ')
+            print(str1)
             text = text.replace(str1, str1.replace(' ',''))
             cate_list.append(str1.replace(' ',''))
             bridge_map[str1.replace(' ','')]=two_word_category_dict[str1]
             category_map[str1] = two_word_category_dict[str1]  
 
     words4=word_tokenize(text)
+
     for word in words4:
         if word in one_word_category_dict:
+            print('1 word category:')
+            print(word)
             cate_list.append(word)
             bridge_map[word]=one_word_category_dict[word]
             category_map[word] = one_word_category_dict[word]
-
+    
+        
     return text, cate_list, category_map, bridge_map
 
 
@@ -87,6 +97,7 @@ def find_category(text):
 #text and categorys should be processed ->text2
 def create_product_idx_map(text, categorys):
     category_idx_map = {}
+    category_idx_map_2 = {}
 
     words = text.split(' ')
     for cat in categorys:
@@ -99,6 +110,18 @@ def create_product_idx_map(text, categorys):
                         category_idx_map[id] = cat
                 else:
                     category_idx_map[id] = cat
+                    
+    # get index of category with 's
+    words2 = word_tokenize(text)
+    for cat in categorys:
+        if cat in words2 and cat+"’s" in words:
+            idx = words.index(cat+"’s")
+            category_idx_map_2[idx] = cat
+        elif cat in words2  and cat+"'s" in words:
+            idx = words.index(cat+"'s")
+            category_idx_map_2[idx] = cat
+                
+    category_idx_map.update(category_idx_map_2)
     
     return category_idx_map
 
