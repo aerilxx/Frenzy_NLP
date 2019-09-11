@@ -177,8 +177,6 @@ def find_brands_without_punc(text):
         if str1[0].isupper() and s in upper_d:
             brands.append(s)
     
-    print("without punc brands")
-    print(brands)
     return brands
 
 # inpt text must be raw text
