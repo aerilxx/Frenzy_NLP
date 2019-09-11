@@ -179,6 +179,7 @@ def clean_art_soup(content, avoidlist):
             # logic : this if-else code is added at last, if any bugs comes, remove this logic
             # logic is to combine multiple span tags into one text by iterating them and adding to buffer, as soon as new different tag arrives append the bufffer_text into main text
             if paragraph.name == "span":
+                print('paragraph name is span')
                 if paragraph.string is not None:
                     text_to_add = paragraph.string.encode('utf-8').decode('utf-8')
                     # logic : sometimes string may end with special characters like \n,\t , so to avoid it
@@ -191,7 +192,7 @@ def clean_art_soup(content, avoidlist):
                         buffer_text = buffer_text + ' ' + text_to_add
                 continue
             else:
-                # print(buffer_text)
+                
                 text = text + '.\n' + buffer_text
                 if len(buffer_text) > 0 and buffer_text[-1] not in ending:
                     text = text + ' .\n'
@@ -202,14 +203,21 @@ def clean_art_soup(content, avoidlist):
 
             # print(paragraph)
             if paragraph.string is not None:
+                print('paragraph.string is not None')
                 text_to_add = paragraph.string.encode('utf-8').decode('utf-8')
+                #print(text_to_add)
+                #print('................')
                 # logic : sometimes string may end with special characters like \n,\t , so to avoid it
                 if text_to_add[0:-1] not in text:
                     text = text + ' .\n' + text_to_add.strip()
                     if len(text_to_add) > 0 and text_to_add[-1] not in ending:
                         text = text + ' .\n'
             else:
-                text_to_add = paragraph.get_text()
+                print('paragraph.string is None so we use get_Text')
+                text_to_add = paragraph.get_text(separator='\n')
+                print(text_to_add)
+                print('................')
+                #print(paragraph)
                 # logic : sometimes string may end with special characters like \n,\t , so to avoid it
                 if text_to_add[0:-1] not in text:
                     text = text + ' .\n' + text_to_add.strip()
@@ -244,13 +252,11 @@ def crawl_text(link):
         flag = True
         check_final = clean_divs(content, avoidlist)
         final1 = ''.join(check_final)
-        # print(type(final2))
+
         return final1
 
 
     if content2 is not None:
-        #print("Text in content")
-        # final = content2.get_text()
         avoidlist = remove_comments(content2)
         flag = True
         check_final = clean_divs(content2, avoidlist)
@@ -262,7 +268,7 @@ def crawl_text(link):
         avoidlist = remove_comments(content3)
         flag = True
         check_final = clean_divs(content3, avoidlist)
-        final3 = ''.join(check_final)
+        final3 = ' '.join(check_final)
 
     if content4 is not None:
         #print("Text in post-content")
