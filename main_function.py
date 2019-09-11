@@ -120,6 +120,9 @@ def run_nlp_analysis(text):
     text_with_clean_brand = text_with_clean_brand.replace('.', ' . ')
     text_with_clean_catandbrand, categorys, category_map, cat_bridge_map = find_category(text_with_clean_brand)
 
+    #print('all categorys are : ')
+    #print(categorys)
+    #print('..........................')
     # logic : trying to remove the double spaces
     res = []
     for word in list(text_with_clean_catandbrand.split(' ')):
@@ -131,16 +134,14 @@ def run_nlp_analysis(text):
 
     idx_brand_map = create_brand_idx_map(text_with_clean_catandbrand, brands)
     idx_category_map = create_product_idx_map(text_with_clean_catandbrand, categorys)
-    # print("idx brand map")
-    # print(sorted(idx_brand_map.items()))
-    # print("idx cat map")
-    # print(sorted(idx_category_map.items()))
-    # print("text_with_clean_catandbrand")
-    # print(text_with_clean_catandbrand)
+    #print("idx brand map")
+    #print(sorted(idx_brand_map.items()))
+    #print("idx cat map")
+    #print(sorted(idx_category_map.items()))
+    #print("text_with_clean_catandbrand")
+    #print(text_with_clean_catandbrand)
     score_list = get_final_result(text_with_clean_catandbrand, brands, categorys, idx_brand_map, idx_category_map)
-    #print(score_list)
-    end1 = time.time()
-    print("Total time till getting score_list = ", end1 - start)
+
     jsondata = []
 
     # logic: getting the score_list for each in just one run
@@ -268,7 +269,10 @@ def run_nlp_analysis(text):
 
     jsondata = sorted(jsondata, key=lambda i: i["brand_pair_score"], reverse=True)
     jsondata = sorted(jsondata, key= lambda i: i["Brand_Name"])
-
+    
+    end1 = time.time()
+    print("Total time running time = ", end1 - start)
+    
     return json.dumps(jsondata, indent=4)
 
 print('....          end          ....')
