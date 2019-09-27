@@ -110,6 +110,20 @@ def get_detail_id(word):
 
     return None
 
+def format_category(category):
+    res = []
+    li = category.split('>')
+    
+    for item in li:
+        res.append(item.capitalize())
+    
+    cat = ' > '.join(res)
+    if '&' in cat:
+        idx = cat.find('&')
+        cat2 = cat.replace(cat[idx+2],cat[idx+2].upper())
+        return cat2
+
+    return cat
 
 def run_nlp_analysis(text):
     start = time.time()
@@ -249,7 +263,7 @@ def run_nlp_analysis(text):
         data = {}
         data["Brand_Name"] = str(brand)
         data["CatName"] = str(cat_name)
-        data["Category"] = str(category)
+        data["Category"] = format_category(str(category))
         data["brand_pair_score"] = float(score)
 
         details = []
