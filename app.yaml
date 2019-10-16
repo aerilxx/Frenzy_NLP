@@ -9,8 +9,12 @@ resources:
      cpu: 2
      memory_gb: 8.0
      disk_size_gb: 20
-health_check:
-      enable_health_check: True
 automatic_scaling:
   max_concurrent_requests: 25
 
+handlers:
+  - url : /updatebrands
+    script : update_brands.sh
+
+beta_settings:
+  cloud_sql_instances: frenzynlp:us-central1:brands
