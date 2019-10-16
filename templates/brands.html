@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" 
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+crossorigin="anonymous">
+
+<head>
+	<meta charset="utf-8">
+    <title>input the blogger url</title>
+    <style>
+      * {
+	  box-sizing: border-box;
+	}
+
+    header {
+      font-family: Arial, Helvetica, sans-serif;
+	  background-color: #FFA8A8;
+	  padding: 10px;
+	  text-align: center;
+	  font-size: 20px;
+	  color: white;
+	}
+
+	nav {
+	  float: left;
+	  width: 100%;
+	  background: #FFD0D0;
+	  padding: 20px;
+	}
+
+	nav ul {
+	  font-size: 25px;
+	  list-style-type: none;
+	  padding: 0;
+	  text-align: center;
+	}
+
+    footer {
+	  background-color: #FFA8A8;
+	  padding: 3px;
+	  text-align: right;
+	  color: #FFA2A2;
+	}
+	    
+    .button {
+	  background-color: #4CAF50; 
+	  border: none;
+	  color: white;
+	  padding: 15px 32px;
+	  text-align: center;
+	  display: inline-block;
+	  font-size: 16px;
+	}
+	</style>
+</head>
+
+<body>
+<header>
+	<h2>Brands in display</h2>
+</header>    
+<nav>
+	<ul>
+	{% with messages = get_flashed_messages() %}
+	    {% if messages %}
+	        {% for message in messages %}
+	             <li>{{ message }}</li>
+	        {% endfor %}
+	    {% endif %}
+	{% endwith %}
+    </ul>
+	
+	<div class="form-group has-success">
+		<form action = "/addBrands" method = "POST" enctype="application/x-www-form-urlencoded">
+	    <label class="control-label" for="inputSuccess1">Add brandname to database.</label>
+	    <input type="text" class="form-control" name="addbrand" aria-describedby="helpBlock2">
+	    </br>
+	    <button class="btn btn-info" type="submit">Add this brand!</button>
+	    </form>
+	</div>
+	
+    <div class="form-group has-success">
+		<form action = "/delBrands" method = "POST" enctype="application/x-www-form-urlencoded">
+	    <label class="control-label" for="inputSuccess1">Delete brandname to database.</label>
+	    <input type="text" class="form-control" name="delbrand" aria-describedby="helpBlock2">
+	    </br>
+	    <button class="btn btn-info" type="submit">Delete this brand!</button>
+	    </form>
+	</div>
+
+    <ul>
+        {% for brand in brands %}
+    	<li> {{ brand }} </li>
+    	{% endfor %}
+    </ul>
+     
+</nav>
+    <footer>
+    	By Aeril
+    </footer>
+</body>
+</html>
