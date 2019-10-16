@@ -6,15 +6,19 @@ Created on Mon Apr 22 15:15:38 2019
 @author: bingqingxie
 """
 
-from flask import Flask, request, jsonify, render_template, Response
+from flask import Flask, request, jsonify, render_template, Response, flash,redirect,url_for
 from main_function import run_nlp_analysis
 from blog_crawler import crawl_text, crawl_img, crawl_title
 import json
 import sys
 import time
+import sqlalchemy
+import os
+
 
 app = Flask(__name__)
 ALLOWED_EXTENSIONS = set(['txt'])
+app.secret_key = "secret"
 
 
 def allowed_file(filename):
@@ -96,6 +100,91 @@ def blogger_crawler():
             images = []
             return render_template('crawlresult.html', link=url, text=text, images=images)
 
+db_user = os.environ.get("DB_USER")
+db_pass = os.environ.get("DB_PASS")
+db_name = 'brands'
+cloud_sql_connection_name = "frenzynlp:us-central1:brands"
+#db_name = os.environ.get("DB_NAME")
+
+
+# The SQLAlchemy engine will help manage interactions, including automatically
+# managing a pool of connections to your database
+db = sqlalchemy.create_engine(
+    # Equivalent URL:
+    # mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=/cloudsql/<cloud_sql_instance_name>
+    sqlalchemy.engine.url.URL(
+        drivername='mysql+pymysql',
+        username='aeril',
+        password='aeril',
+        database=db_name,
+        query={
+            'unix_socket': '/cloudsql/{}'.format(cloud_sql_connection_name)
+        }
+    ),
+	pool_size=5,
+    max_overflow=2,
+    pool_timeout=300,  
+    pool_recycle=1000,  # 20 minutes
+)
+
+# display all brands in front end
+@app.route('/brands', methods=['GET'])
+def display_brands():
+    brands = []
+    with db.connect() as conn:
+        # Execute the query and fetch all results
+        all_brands = conn.execute(
+            "SELECT BrandName FROM Brands "
+            "ORDER BY BrandName ASC"
+        ).fetchall()
+        # Convert the results into a list of dicts representing brands
+        for row in all_brands:
+            brands.append(row[0])
+
+    return render_template('brands.html',brands = brands)
+
+# add brands in db
+@app.route('/addBrands',methods = ['POST'])
+def add_brand():
+    brand = request.values['addbrand']
+    if brand is None or brand is '':
+        return "please provide a valid brand name."
+    
+    else:
+        stmt = sqlalchemy.text(
+                "INSERT IGNORE INTO Brands (BrandName)"
+                "VALUES(:brand)"
+                )
+        try:
+            with db.connect() as conn:
+                conn.execute(stmt, brand = brand)
+                return Response(status=200,response="Add the brand: {} successfully!".format(brand))
+        
+        except Exception as e:
+            return Response(status=500,response="You can't add this brands, becasue {}!".format(e)) 
+
+
+# delete brands in db
+@app.route('/delBrands',methods = ['POST'])
+def del_brand():
+    brand = request.values['delbrand']
+    if brand is None or brand is '':
+        return "please provide a valid brand name."
+    
+    else:
+        print(type(brand))
+        stmt = sqlalchemy.text(
+                "DELETE FROM Brands WHERE BrandName = :brand "
+             )
+        
+        try:
+            with db.connect() as conn:
+                conn.execute(stmt,brand = brand)
+                return Response(status=200,response="Delete the brand: {} successfully!".format(brand))
+        
+        except Exception as e:
+            return Response(status=500,response="You can't delete this brands, becasue {}!".format(e))    
+         
 
 # -------------- terminal endpoint and test on postman -------------------- #
 
@@ -186,6 +275,10 @@ def get_all_result():
 def jmetertesting():
     try:
         url = request.values['url']
+     
+        if 'preview-token' in url:
+            url = url.rstrip('/')
+
         if url:
             text = crawl_text(url)
             img = crawl_img(url)
