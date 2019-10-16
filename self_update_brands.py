@@ -4,10 +4,10 @@ import os
 import sqlalchemy
 import sys
 
-db_user = "aeril"
-db_pass = "aeril"
-db_name = "brands"
-cloud_sql_connection_name = "frenzynlp:us-central1:brands"
+db_user = os.environ('DB_USER')
+db_pass = os.environ('DB_PASS')
+db_name = os.environ('DB_NAME')
+cloud_sql_connection_name = os.environ('DB')
 
 logger = logging.getLogger()
 logging.basicConfig(filename = 'update_brands.log', level = logging.DEBUG)
