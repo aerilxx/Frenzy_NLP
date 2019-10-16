@@ -1,0 +1,4 @@
+cron:
+- description: "run update_brands automatically every sunday"
+  url: /updatebrands
+  schedule: every sunday 23:00
